@@ -1,0 +1,19 @@
+﻿using SolutionName.Domain.Services.Domain.Request;
+using SolutionName.Domain.Services.Domain.Response;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SolutionName.Domain.Services.Domain.Services.Interfaces
+{
+    public interface IModelsService
+    {
+        public Task<List<ModelResponse>> GetAll(int? s, int? l, string q);
+        public Task<ModelResponse> GetById(int id);
+        public Task<ModelResponse> Create(ModelRequest newModel, string userId);
+        public Task<ModelResponse> Update(ModelRequest updatedModel, string userId);
+        public Task<bool> Delete(int id, string userId);
+    }
+}

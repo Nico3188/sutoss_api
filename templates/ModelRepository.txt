@@ -1,0 +1,37 @@
+﻿using SolutionName.Domain.Services.Domain.Repositories.Interfaces;
+using SolutionName.Domain.Services.Repositories;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SolutionName.Domain.Services.Domain.Repositories
+{
+    public class ModelRepository : Repository<Model>, IModelRepository
+    {
+        public ModelRepository(DBContext context) : base(context)
+        {
+            DataSet = context.Models;
+        }
+        protected override Func<Model, bool> PredicateAll()
+        {
+            return new Func<Model, bool>(x => x.Deleted == false);
+        }
+
+        protected override Func<Model, bool> PredicateGet<TInput>(TInput id)
+        {
+            return new Func<Model, bool>(x => x.ModelId == int.Parse(id.ToString()));
+        }
+
+        protected override string PredicateStringAll()
+        {
+            return "";
+        }
+
+        protected override string PredicateStringGet<TInput>(TInput id)
+        {
+            return $"ModelId == {id}";
+        }
+    }
+}
