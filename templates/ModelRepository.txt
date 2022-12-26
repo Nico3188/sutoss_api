@@ -1,0 +1,28 @@
+﻿using SolutionName.Domain.Services.Domain.Repositories.Interfaces;
+using SolutionName.Domain.Services.Repositories;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SolutionName.Domain.Services.Domain.Repositories
+{
+    public class ModelRepository : Repository<Model>, IModelRepository
+    {
+        public ModelRepository(DBContext context) : base(context)
+        {
+            DataSet = context.Models;
+        }
+
+        protected override string PredicateStringAll()
+        {
+            return "";
+        }
+
+        protected override string PredicateStringGet<TInput>(TInput id)
+        {
+            return $"IdModel == {id}";
+        }
+    }
+}

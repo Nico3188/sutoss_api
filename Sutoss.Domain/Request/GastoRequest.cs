@@ -1,0 +1,18 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Sutoss.Domain.Services.Domain.Request
+{
+    public class GastoRequest
+    {
+        public int IdGasto { get; set; }
+public string GNombre { get; set; }
+public string GObservacion { get; set; }
+public string GFreciencia { get; set; }
+public string GTipo { get; set; }
+
+    }
+}

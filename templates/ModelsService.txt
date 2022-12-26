@@ -1,0 +1,127 @@
+﻿using AutoMapper;
+using SolutionName.Domain.Services.Domain.Filters;
+using SolutionName.Domain.Services.Domain.Repositories.Interfaces;
+using SolutionName.Domain.Services.Domain.Request;
+using SolutionName.Domain.Services.Domain.Response;
+using SolutionName.Domain.Services.Domain.Services.Base;
+using SolutionName.Domain.Services.Domain.Services.Interfaces;
+using SolutionName.Domain.Services.Exceptions;
+using SolutionName.Domain.Services.Helpers;
+using SolutionName.Domain.Services.Repositories;
+using Microsoft.Extensions.Options;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Linq.Dynamic.Core;
+
+namespace SolutionName.Domain.Services.Domain.Services
+{
+    public class ModelsService : BaseService, IModelsService
+    {
+        private readonly IModelRepository _ModelRepository;
+        private readonly DomainSettings _appSettings;
+        private readonly IMapper _mapper;
+        public ModelsService(
+            IModelRepository ModelRepository,
+            IMapper mapper,
+            IOptions<DomainSettings> appSettings) : base()
+        {
+            _ModelRepository = ModelRepository;
+            _appSettings = appSettings.Value;
+            _mapper = mapper;
+        }
+        public async Task<ModelResponse> Create(ModelRequest newModel )
+        {
+            var transaction = _ModelRepository.BeginTransaction();
+            try
+            {
+
+                Model entity= _mapper.Map<Model>(newModel);
+                var addedModel = await _ModelRepository.Insert(entity);
+                transaction.Commit();
+                return _mapper.Map<ModelResponse>(addedModel);
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                throw ex;
+            }
+        }
+
+        public async Task<bool> Delete(int id )
+        {
+            var transaction = _ModelRepository.BeginTransaction();
+            try
+            {
+                var result = (await _ModelRepository.Get(id)).FirstOrDefault();
+                if (result == null)
+                {
+                    throw new NotFoundException(message: "Model not found");
+                }
+                await _ModelRepository.Delete(result.IdModel);
+                transaction.Commit();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                throw ex;
+            }
+        }
+
+        public async Task<List<ModelResponse>> GetAll(int? s, int? l, string q)
+        {
+            try
+            {
+                s = s != null && s.Value != 0 ? s.Value - 1 : 0;
+                l = l ?? 10;
+                IQueryable<Model> items = await _ModelRepository.All();
+                items = ApplyFilterAndPagination(items, s.Value, q, l.Value);
+                return _mapper.Map<List<ModelResponse>>(items);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<ModelResponse> GetById(int id)
+        {
+            try
+            {
+                var result = (await _ModelRepository.Get(id)).FirstOrDefault();
+                if (result == null)
+                {
+                    throw new NotFoundException(message: "Model not found");
+                }
+                return _mapper.Map<ModelResponse>(result);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<ModelResponse> Update(ModelRequest updatedModel )
+        {
+            var transaction = _ModelRepository.BeginTransaction();
+            try
+            {
+
+                var mappedModel = (await _ModelRepository.Get(updatedModel.IdModel)).FirstOrDefault();
+		        var result = await _ModelRepository.Update(mappedModel);
+                var mappedResponse = _mapper.Map<ModelResponse>(result);
+                transaction.Commit();
+                return mappedResponse;
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                throw ex;
+            }
+        }
+
+    }
+}
