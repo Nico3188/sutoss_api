@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Sutoss.Domain.Services.Domain.Request
 {
-    public class PetTypeRequest
+    public class LogOperacioneRequest
     {
-        public bool Deleted { get; set; }
-public int PetTypeId { get; set; }
-public string Name { get; set; }
+        public int IdLogOperaciones { get; set; }
+public string Operacion { get; set; }
+public string Usuario { get; set; }
 
     }
 }

@@ -15,6 +15,9 @@ using Quartz;
 
 // dotnet ef dbcontext scaffold "server=localhost;port=3306;database=Sutoss;uid=root;password=SoloyoNS311088" Pomelo.EntityFrameworkCore.MySql --project . --startup-project . --output-dir "D:\ByteTec\Sutoss\Sutoss\Sutoss.Persistence\Entities" --context SutossContext -f -v
 
+// Wolfbuilder Sutoss SutossContext Users User
+
+
 namespace Sutoss
 {
     public class Startup
@@ -42,8 +45,7 @@ namespace Sutoss
             // services.ConfigureValidators();
             services.ConfigureScheduler(Configuration);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.ConfigureAuth0Authetication(Configuration);
-            services.ConfigureAuth0Authorization();
+            // services.ConfigureAutheticationV2(Configuration);
             services.AddControllers();
             services.AddHttpClient();
             ConfigureSwagger(services);

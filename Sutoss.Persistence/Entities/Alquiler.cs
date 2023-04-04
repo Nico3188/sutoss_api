@@ -11,8 +11,8 @@ namespace Sutoss
         }
 
         public int IdAlquiler { get; set; }
-        public DateOnly AFinicio { get; set; }
-        public DateOnly AFfin { get; set; }
+        public DateTime AFinicio { get; set; }
+        public DateTime AFfin { get; set; }
         public int ACantaduldos { get; set; }
         public int ACantmenores { get; set; }
         public int AMascotas { get; set; }

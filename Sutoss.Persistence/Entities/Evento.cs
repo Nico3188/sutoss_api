@@ -12,7 +12,7 @@ namespace Sutoss
 
         public int IdEvento { get; set; }
         public string ENombre { get; set; }
-        public DateOnly EFecha { get; set; }
+        public DateTime EFecha { get; set; }
         public string EPrecio { get; set; }
         public int? ECarton { get; set; }
         public int? ECodigo { get; set; }

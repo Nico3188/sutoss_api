@@ -8,8 +8,8 @@ namespace Sutoss
         public int IdConvenioxProv { get; set; }
         public int IdConvenio { get; set; }
         public int IdPersona { get; set; }
-        public DateOnly? ConxpFinicio { get; set; }
-        public DateOnly? ConxpFfin { get; set; }
+        public DateTime? ConxpFinicio { get; set; }
+        public DateTime? ConxpFfin { get; set; }
         public string ConxpEstado { get; set; }
     }
 }

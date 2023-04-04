@@ -14,7 +14,7 @@ namespace Sutoss
         public int IdCompra { get; set; }
         public string CompCodigo { get; set; }
         public int? CompNumero { get; set; }
-        public DateOnly CompFecha { get; set; }
+        public DateTime CompFecha { get; set; }
         public string CompEstado { get; set; }
         public string CompPreciofinal { get; set; }
         public int OrdenCompraIdOrdenCompra { get; set; }

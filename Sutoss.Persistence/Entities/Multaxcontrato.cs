@@ -6,7 +6,7 @@ namespace Sutoss
     public partial class Multaxcontrato
     {
         public int IdMultaxContrato { get; set; }
-        public DateOnly MxcFecha { get; set; }
+        public DateTime MxcFecha { get; set; }
         public string MxcEstado { get; set; }
         public int MultaIdMulta { get; set; }
         public int ContratoIdContrato { get; set; }

@@ -27,6 +27,7 @@ namespace Sutoss.Extensions
 
         public static void ConfigureRepos(this IServiceCollection services)
         {
+            services.AddScoped<IAnticipoRepository,AnticipoRepository>();
             services.AddScoped<IProvinciumRepository, ProvinciumRepository>();
             services.AddScoped<IDepartamentoRepository, DepartamentoRepository>();
             services.AddScoped<ILocalidadRepository, LocalidadRepository>();
@@ -41,7 +42,8 @@ namespace Sutoss.Extensions
             services.AddScoped<IFormaPagoRepository, FormaPagoRepository>();
             services.AddScoped<IPrestamoRepository, PrestamoRepository>();
             services.AddScoped<IPrestamosxpersonaRepository, PrestamosxpersonaRepository>();
-            services.AddScoped<IPersonaRepository, PersonaRepository>();
+            services.AddScoped<IPersonaRepository, PersonaRepository>(); 
+            services.AddScoped<IFamiliarRepository, FamiliarRepository>();
             services.AddScoped<ICelebracionRepository, CelebracionRepository>();
             services.AddScoped<IEventoRepository, EventoRepository>();
             services.AddScoped<IGanadorRepository, GanadorRepository>();
@@ -57,6 +59,7 @@ namespace Sutoss.Extensions
             services.AddScoped<IProductoAsignadoRepository, ProductoAsignadoRepository>();
             services.AddScoped<IProductoRepository, ProductoRepository>();
             services.AddScoped<IPedidoProductoRepository, PedidoProductoRepository>();
+            services.AddScoped<ICompraRepository, CompraRepository>();
             services.AddScoped<IOrdenCompraRepository, OrdenCompraRepository>();
             services.AddScoped<IDetalleCompraRepository, DetalleCompraRepository>();
             services.AddScoped<IFacturaRepository, FacturaRepository>();
@@ -66,9 +69,11 @@ namespace Sutoss.Extensions
             services.AddScoped<IServicioRepository,ServicioRepository>();
             services.AddScoped<IProveedorRepository, ProveedorRepository>();
             services.AddScoped<IOrdenPagoRepository, OrdenPagoRepository>();
+
         }
         public static void ConfigureInnerServices(this IServiceCollection services)
         {
+            services.AddScoped<IAnticiposService, AnticiposService>();
             services.AddScoped<IProvinciaService, ProvinciaService>();
             services.AddScoped<IDepartamentosService, DepartamentosService>();
             services.AddScoped<ILocalidadsService, LocalidadsService>();
@@ -84,6 +89,7 @@ namespace Sutoss.Extensions
             services.AddScoped<IPrestamosService,PrestamosService>();
             services.AddScoped<IPrestamosxpersonasService,PrestamosxpersonasService>();
             services.AddScoped<IPersonasService, PersonasService>();
+            services.AddScoped<IFamiliarsService, FamiliarsService>();
             services.AddScoped<ICelebracionsService,CelebracionsService>();
             services.AddScoped<IEventosService,EventosService>();
             services.AddScoped<IGanadorsService, GanadorsService>();
@@ -125,64 +131,30 @@ namespace Sutoss.Extensions
                     });
             });
         }
-
-        public static void ConfigureAuth0Authorization(this IServiceCollection services)
+        public static void ConfigureAutheticationV2(this IServiceCollection services, IConfiguration config)
         {
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("ClientRole", policy => policy.RequireClaim("DracoSutossRoles", "client"));
-            });
-        }
+            var key = Encoding.ASCII.GetBytes(config["AppSettings:Secret"]);
 
-        public static void ConfigureAuth0Authetication(this IServiceCollection services)
-        {
-            services.AddAuthorization(
-                options =>
+            services.AddAuthentication(x =>
             {
-                options.AddPolicy("ClientRole", policy => policy.RequireClaim("DracoSutossRoles", "client"));
-            }
-            );
-        }
-
-        public static void ConfigureAuth0Authetication(this IServiceCollection services, IConfiguration config)
-        {
-            services.AddAuthentication(options =>
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
             {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(options =>
-            {
-                options.Authority = $"https://dev-x1-1jwqn.us.auth0.com/";
-                options.Audience = "rlL1xv9pEH1RsbhzrttNiuo61Td4ZPHq";
-                options.TokenValidationParameters = new TokenValidationParameters
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
                 {
-                    NameClaimType = ClaimTypes.NameIdentifier
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
                 };
-                options.Events = new JwtBearerEvents()
-                {
-                    OnTokenValidated = context =>
-                    {
-                        if (!(context.SecurityToken is JwtSecurityToken token)) return Task.CompletedTask;
-                        if (context.Principal?.Identity is ClaimsIdentity identity)
-                        {
-                            identity.AddClaim(new Claim("access_token", token.RawData));
-                        }
-                        return Task.CompletedTask;
-                    },
-                    OnAuthenticationFailed = context =>
-                    {
-                        Console.WriteLine(context.Exception.Message);
-                        return Task.CompletedTask;
-                    },
-                    OnForbidden = context =>
-                    {
-                        Console.WriteLine(context.ToString());
-                        return Task.CompletedTask;
-                    }
-                    
-                };
-
             });
+            services.AddAuthorization();
         }
     }
+
+
+
 }

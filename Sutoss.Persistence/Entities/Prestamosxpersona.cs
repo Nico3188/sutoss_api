@@ -6,7 +6,7 @@ namespace Sutoss
     public partial class Prestamosxpersona
     {
         public int IdPrestamosxpersona { get; set; }
-        public DateOnly PpFecha { get; set; }
+        public DateTime PpFecha { get; set; }
         public int PpCantCuotas { get; set; }
         public string PpObrsevacion { get; set; }
         public string PpEstado { get; set; }

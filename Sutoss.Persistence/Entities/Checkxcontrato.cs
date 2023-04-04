@@ -6,7 +6,7 @@ namespace Sutoss
     public partial class Checkxcontrato
     {
         public int IdCheckxContrato { get; set; }
-        public DateOnly ChcFecha { get; set; }
+        public DateTime ChcFecha { get; set; }
         public string ChcResponsables { get; set; }
         public string ChcObservaciones { get; set; }
         public string ChcNumero { get; set; }

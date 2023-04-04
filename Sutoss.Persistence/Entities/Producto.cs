@@ -20,7 +20,7 @@ namespace Sutoss
         public string PUnidad { get; set; }
         public int? PCodBarra { get; set; }
         public string PEstado { get; set; }
-        public DateOnly? PFCompra { get; set; }
+        public DateTime? PFCompra { get; set; }
 
         public virtual ICollection<DetalleCompra> DetalleCompras { get; set; }
         public virtual ICollection<DetalleMantenimiento> DetalleMantenimientos { get; set; }

@@ -8,11 +8,11 @@ namespace Sutoss.Domain.Services.Domain.Response
 {
     public class UserResponse
     {
-        public bool Deleted { get; set; }
-public int UserId { get; set; }
-public DateTime Stamp { get; set; }
-public string UserName { get; set; }
+        public int IdUser { get; set; }
+public string Usernombre { get; set; }
+public string Userrol { get; set; }
 public string Hash { get; set; }
+public string Usermail { get; set; }
 
     }
 }

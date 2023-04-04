@@ -10,7 +10,9 @@ namespace Sutoss.Domain.Services.Domain.Services.Interfaces
 {
     public interface IPersonasService
     {
+        //public Task<AuthResponse> Authenticate(AuthRequest request);
         public Task<List<PersonaResponse>> GetAll(int? s, int? l, string q);
+        public Task<PersonaResponse> GetAllPer(int? s, int? leg, string q);
         public Task<PersonaResponse> GetById(int id);
         public Task<PersonaResponse> Create(PersonaRequest newPersona);
         public Task<PersonaResponse> Update(PersonaRequest updatedPersona);

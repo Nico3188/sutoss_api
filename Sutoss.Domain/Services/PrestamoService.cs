@@ -37,7 +37,6 @@ namespace Sutoss.Domain.Services.Domain.Services
             var transaction = _PrestamoRepository.BeginTransaction();
             try
             {
-
                 Prestamo entity= _mapper.Map<Prestamo>(newPrestamo);
                 var addedPrestamo = await _PrestamoRepository.Insert(entity);
                 transaction.Commit();

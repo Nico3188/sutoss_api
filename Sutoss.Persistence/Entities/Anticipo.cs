@@ -8,8 +8,10 @@ namespace Sutoss
         public int IdAnticipo { get; set; }
         public string AConcepto { get; set; }
         public string AMonto { get; set; }
-        public DateOnly AFecha { get; set; }
+        public DateTime AFecha { get; set; }
         public string AAprobado { get; set; }
         public string AEstado { get; set; }
+        public int PersonaIdPersona { get; set; }
+        public virtual Persona PersonaIdPersonaNavigation { get; set; }
     }
 }

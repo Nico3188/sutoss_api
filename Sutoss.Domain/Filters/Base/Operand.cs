@@ -28,17 +28,22 @@ namespace Sutoss.Domain.Services.Domain.Filters.Base
 
         private string BuildOperandString(string property, EqualityComparer? equalityComparer, string value, DataType? dataType)
         {
-            switch (equalityComparer.Value)
-            {
-                case EqualityComparer.Eq: return $"{property} == {GetFormattedValue(value,dataType)}";
-                case EqualityComparer.Gt: return $"{property} > {GetFormattedValue(value,dataType)}";
-                case EqualityComparer.Gte: return $"{property} >= {GetFormattedValue(value,dataType)}";
-                case EqualityComparer.Lt: return $"{property} < {GetFormattedValue(value,dataType)}";
-                case EqualityComparer.Lte: return $"{property} <= {GetFormattedValue(value,dataType)}";
-                case EqualityComparer.Ne: return $"{property} != {GetFormattedValue(value,dataType)}";
-                case EqualityComparer.Like: return $"{property}.ToUpper().Contains({GetFormattedValue(value,dataType)})";
-                default: return "";
-            }
+            // if(!string.IsNullOrEmpty(value))
+            // {
+                switch (equalityComparer.Value)
+                {
+                    case EqualityComparer.Eq: return $"{property} == {GetFormattedValue(value,dataType)}";
+                    case EqualityComparer.Gt: return $"{property} > {GetFormattedValue(value,dataType)}";
+                    case EqualityComparer.Gte: return $"{property} >= {GetFormattedValue(value,dataType)}";
+                    case EqualityComparer.Lt: return $"{property} < {GetFormattedValue(value,dataType)}";
+                    case EqualityComparer.Lte: return $"{property} <= {GetFormattedValue(value,dataType)}";
+                    case EqualityComparer.Ne: return $"{property} != {GetFormattedValue(value,dataType)}";
+                    case EqualityComparer.Like: return $"{property}.ToUpper().Contains({GetFormattedValue(value,dataType)})";
+                    default: return "";
+                }
+            // }
+            // return "";
+
         }
 
         private string GetFormattedValue(string value, DataType? dataType)

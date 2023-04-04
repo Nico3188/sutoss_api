@@ -26,7 +26,7 @@ namespace Sutoss.Controllers
         }
 
         [HttpGet("GetAll")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> GetAll([FromQuery] int? s, [FromQuery] string q, [FromQuery] int? l)
         {
             try
@@ -56,7 +56,7 @@ namespace Sutoss.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> GetById(int id)
         {
             try
@@ -87,7 +87,7 @@ namespace Sutoss.Controllers
         }
 
         [HttpPost("Create")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> Create(PrestamosxpersonaRequest newPrestamosxpersona)
         {
             try 
@@ -116,9 +116,44 @@ namespace Sutoss.Controllers
             }
 
         }
+// Prestamos por persona cargando un prestamos nuevo
+
+        // [HttpPost("Create")]
+        // [Authorize]
+        // public async Task<IActionResult> Create(PrestamosxpersonaRequest newPrestamosxpersona)
+        // {
+        //     try 
+        //     {
+        //         return Ok(await _service.Create(newPrestamosxpersona  ));
+        //     }
+        //     catch (NotFoundException ex)
+        //     {
+        //         // Logger.Warn(ex);
+        //         return StatusCode(StatusCodes.Status404NotFound, ex.Message);
+        //     }
+        //     catch (ForbiddenException ex)
+        //     {
+        //         // Logger.Warn(ex);
+        //         return StatusCode(StatusCodes.Status403Forbidden, ex.Message);
+        //     }
+        //     catch (UnauthorizedException ex)
+        //     {
+        //         // Logger.Warn(ex);
+        //         return StatusCode(StatusCodes.Status401Unauthorized, "Username or password is incorrect");
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         // Logger.Error(ex);
+        //         return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        //     }
+
+        // }
+
+
+        //
 
         [HttpPut("Update")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> Update(PrestamosxpersonaRequest Prestamosxpersona)
         {
             try
@@ -148,7 +183,7 @@ namespace Sutoss.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             try

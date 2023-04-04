@@ -25,8 +25,43 @@ namespace Sutoss.Controllers
             _service = service;
         }
 
+
+        // [HttpPost("auth")]
+        // public async Task<IActionResult> Auth([FromBody] AuthRequest request)
+        // {
+        //     try
+        //     {
+        //         var response = await _service.Authenticate(request);
+
+        //         if (response == null)
+        //             return BadRequest(new { message = "Username or password is incorrect" });
+
+        //         return Ok(response);
+        //     }
+        //     catch (NotFoundException ex)
+        //     {
+        //         // Logger.Warn(ex);
+        //         return StatusCode(StatusCodes.Status404NotFound, ex.Message);
+        //     }
+        //     catch (ForbiddenException ex)
+        //     {
+        //         // Logger.Warn(ex);
+        //         return StatusCode(StatusCodes.Status403Forbidden, ex.Message);
+        //     }
+        //     catch (UnauthorizedException ex)
+        //     {
+        //         // Logger.Warn(ex);
+        //         return StatusCode(StatusCodes.Status401Unauthorized, "Username or password is incorrect");
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         // Logger.Error(ex);
+        //         return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        //     }
+        // }
+
         [HttpGet("GetAll")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> GetAll([FromQuery] int? s, [FromQuery] string q, [FromQuery] int? l)
         {
             try
@@ -54,9 +89,40 @@ namespace Sutoss.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+        
+        [HttpGet("GetAllPer")]
+        // [Authorize]
+        public async Task<IActionResult> GetAllPer([FromQuery] int? s, [FromQuery] int? leg, [FromQuery] string q)
+        {
+            try
+            {
+                return Ok(await _service.GetAllPer(s: s, q: q, leg: leg));
+            }
+            catch (NotFoundException ex)
+            {
+                // Logger.Warn(ex);
+                return StatusCode(StatusCodes.Status404NotFound, ex.Message);
+            }
+            catch (ForbiddenException ex)
+            {
+                // Logger.Warn(ex);
+                return StatusCode(StatusCodes.Status403Forbidden, ex.Message);
+            }
+            catch (UnauthorizedException ex)
+            {
+                // Logger.Warn(ex);
+                return StatusCode(StatusCodes.Status401Unauthorized, "Username or password is incorrect");
+            }
+            catch (Exception ex)
+            {
+                // Logger.Error(ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+        
 
         [HttpGet("{id}")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> GetById(int id)
         {
             try
@@ -87,13 +153,14 @@ namespace Sutoss.Controllers
         }
 
         [HttpPost("Create")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> Create(PersonaRequest newPersona)
         {
             try 
             {
-                return Ok(await _service.Create(newPersona  ));
+                return Ok(await _service.Create(newPersona ));
             }
+            
             catch (NotFoundException ex)
             {
                 // Logger.Warn(ex);
@@ -111,14 +178,18 @@ namespace Sutoss.Controllers
             }
             catch (Exception ex)
             {
+                if (ex.Message=="El legajo ya existe"){
+                    return StatusCode(StatusCodes.Status406NotAcceptable,"El legajo ya existe");
+                }else {
+                    return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                }
                 // Logger.Error(ex);
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
 
         }
 
         [HttpPut("Update")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> Update(PersonaRequest Persona)
         {
             try
@@ -148,7 +219,7 @@ namespace Sutoss.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             try

@@ -35,3 +35,5 @@ namespace Sutoss.Domain.Services.Domain.Services.Base
         }
     }
 }
+// .com/user/1
+// .com?q=adkhgasdjaghdqiueyqewru

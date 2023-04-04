@@ -14,7 +14,7 @@ namespace Sutoss
         public string OcCodigo { get; set; }
         public int? OcNumero { get; set; }
         public string OcEstado { get; set; }
-        public DateOnly OcFecha { get; set; }
+        public DateTime OcFecha { get; set; }
         public string OcCargadopor { get; set; }
         public int PedidoProductoIdPedidoProducto { get; set; }
 

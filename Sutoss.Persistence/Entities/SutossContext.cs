@@ -39,6 +39,7 @@ namespace Sutoss
         public virtual DbSet<Enferemedad> Enferemedads { get; set; }
         public virtual DbSet<Evento> Eventos { get; set; }
         public virtual DbSet<Factura> Facturas { get; set; }
+        public virtual DbSet<Familiar> Familiars { get; set; }
         public virtual DbSet<Familium> Familia { get; set; }
         public virtual DbSet<FormaPago> FormaPagos { get; set; }
         public virtual DbSet<FpContrato> FpContratos { get; set; }
@@ -50,6 +51,7 @@ namespace Sutoss
         public virtual DbSet<Impxinstalacion> Impxinstalacions { get; set; }
         public virtual DbSet<Instalacion> Instalacions { get; set; }
         public virtual DbSet<Localidad> Localidads { get; set; }
+        public virtual DbSet<LogOperacione> LogOperaciones { get; set; }
         public virtual DbSet<Mantenimiento> Mantenimientos { get; set; }
         public virtual DbSet<Multaxcontrato> Multaxcontratos { get; set; }
         public virtual DbSet<Multum> Multa { get; set; }
@@ -68,6 +70,7 @@ namespace Sutoss
         public virtual DbSet<Servicio> Servicios { get; set; }
         public virtual DbSet<Suscripcion> Suscripcions { get; set; }
         public virtual DbSet<Turno> Turnos { get; set; }
+        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Vicnulo> Vicnulos { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -101,9 +104,13 @@ namespace Sutoss
 
                 entity.Property(e => e.ACantmenores).HasColumnName("a.cantmenores");
 
-                entity.Property(e => e.AFfin).HasColumnName("a.ffin");
+                entity.Property(e => e.AFfin)
+                    .HasColumnType("datetime")
+                    .HasColumnName("a.ffin");
 
-                entity.Property(e => e.AFinicio).HasColumnName("a.finicio");
+                entity.Property(e => e.AFinicio)
+                    .HasColumnType("datetime")
+                    .HasColumnName("a.finicio");
 
                 entity.Property(e => e.AMascotas).HasColumnName("a.mascotas");
 
@@ -131,6 +138,8 @@ namespace Sutoss
 
                 entity.ToTable("anticipo");
 
+                entity.HasIndex(e => e.PersonaIdPersona, "fk_Anticipo_Persona_idx");
+
                 entity.Property(e => e.IdAnticipo).HasColumnName("Id_Anticipo");
 
                 entity.Property(e => e.AAprobado)
@@ -147,12 +156,22 @@ namespace Sutoss
                     .HasMaxLength(20)
                     .HasColumnName("a.estado");
 
-                entity.Property(e => e.AFecha).HasColumnName("a.fecha");
+                entity.Property(e => e.AFecha)
+                    .HasColumnType("datetime")
+                    .HasColumnName("a.fecha");
 
                 entity.Property(e => e.AMonto)
                     .IsRequired()
                     .HasMaxLength(10)
                     .HasColumnName("a.monto");
+
+                entity.Property(e => e.PersonaIdPersona).HasColumnName("Persona_Id_Persona");
+
+                entity.HasOne(d => d.PersonaIdPersonaNavigation)
+                    .WithMany(p => p.Anticipos)
+                    .HasForeignKey(d => d.PersonaIdPersona)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_Anticipo_Persona");
             });
 
             modelBuilder.Entity<Beneficio>(entity =>
@@ -227,7 +246,9 @@ namespace Sutoss
 
                 entity.Property(e => e.IdCheckxContrato).HasColumnName("Id_CheckxContrato");
 
-                entity.Property(e => e.ChcFecha).HasColumnName("chc.fecha");
+                entity.Property(e => e.ChcFecha)
+                    .HasColumnType("datetime")
+                    .HasColumnName("chc.fecha");
 
                 entity.Property(e => e.ChcNumero)
                     .HasMaxLength(4)
@@ -308,7 +329,9 @@ namespace Sutoss
                     .HasMaxLength(20)
                     .HasColumnName("comp.estado");
 
-                entity.Property(e => e.CompFecha).HasColumnName("comp.fecha");
+                entity.Property(e => e.CompFecha)
+                    .HasColumnType("datetime")
+                    .HasColumnName("comp.fecha");
 
                 entity.Property(e => e.CompNumero).HasColumnName("comp.numero");
 
@@ -407,9 +430,13 @@ namespace Sutoss
                     .HasMaxLength(10)
                     .HasColumnName("conxp.estado");
 
-                entity.Property(e => e.ConxpFfin).HasColumnName("conxp.ffin");
+                entity.Property(e => e.ConxpFfin)
+                    .HasColumnType("datetime")
+                    .HasColumnName("conxp.ffin");
 
-                entity.Property(e => e.ConxpFinicio).HasColumnName("conxp.finicio");
+                entity.Property(e => e.ConxpFinicio)
+                    .HasColumnType("datetime")
+                    .HasColumnName("conxp.finicio");
 
                 entity.Property(e => e.IdConvenio).HasColumnName("Id_Convenio");
 
@@ -435,7 +462,9 @@ namespace Sutoss
                     .HasMaxLength(10)
                     .HasColumnName("cpp.estado");
 
-                entity.Property(e => e.CppFecha).HasColumnName("cpp.fecha");
+                entity.Property(e => e.CppFecha)
+                    .HasColumnType("datetime")
+                    .HasColumnName("cpp.fecha");
             });
 
             modelBuilder.Entity<CuotaPrestamo>(entity =>
@@ -454,7 +483,9 @@ namespace Sutoss
                     .HasMaxLength(10)
                     .HasColumnName("cp.Estado");
 
-                entity.Property(e => e.CpFpago).HasColumnName("cp.fpago");
+                entity.Property(e => e.CpFpago)
+                    .HasColumnType("datetime")
+                    .HasColumnName("cp.fpago");
 
                 entity.Property(e => e.CpImporte).HasColumnName("cp.importe");
 
@@ -522,9 +553,13 @@ namespace Sutoss
 
                 entity.Property(e => e.IdDesignacion).HasColumnName("Id_Designacion");
 
-                entity.Property(e => e.DFin).HasColumnName("d.fin");
+                entity.Property(e => e.DFin)
+                    .HasColumnType("datetime")
+                    .HasColumnName("d.fin");
 
-                entity.Property(e => e.DInicio).HasColumnName("d.inicio");
+                entity.Property(e => e.DInicio)
+                    .HasColumnType("datetime")
+                    .HasColumnName("d.inicio");
 
                 entity.Property(e => e.DNombre)
                     .IsRequired()
@@ -723,7 +758,9 @@ namespace Sutoss
 
                 entity.Property(e => e.ECodigo).HasColumnName("e.codigo");
 
-                entity.Property(e => e.EFecha).HasColumnName("e.fecha");
+                entity.Property(e => e.EFecha)
+                    .HasColumnType("datetime")
+                    .HasColumnName("e.fecha");
 
                 entity.Property(e => e.ENombre)
                     .IsRequired()
@@ -782,6 +819,48 @@ namespace Sutoss
                     .HasConstraintName("fk_Factura_Impuesto1");
             });
 
+            modelBuilder.Entity<Familiar>(entity =>
+            {
+                entity.HasKey(e => e.IdFamiliar)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("familiar");
+
+                entity.HasIndex(e => e.PersonaIdPersona, "fk_Familia_Persona_idx");
+
+                entity.Property(e => e.IdFamiliar).HasColumnName("idFamiliar");
+
+                entity.Property(e => e.FamDni)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .HasColumnName("famDNI");
+
+                entity.Property(e => e.FamDomicilio)
+                    .HasMaxLength(45)
+                    .HasColumnName("famDomicilio");
+
+                entity.Property(e => e.FamNombre)
+                    .IsRequired()
+                    .HasMaxLength(85)
+                    .HasColumnName("famNombre");
+
+                entity.Property(e => e.FamVinculo)
+                    .HasMaxLength(45)
+                    .HasColumnName("famVinculo");
+
+                entity.Property(e => e.Famnacimiento)
+                    .HasColumnType("datetime")
+                    .HasColumnName("famnacimiento");
+
+                entity.Property(e => e.PersonaIdPersona).HasColumnName("Persona_Id_Persona");
+
+                entity.HasOne(d => d.PersonaIdPersonaNavigation)
+                    .WithMany(p => p.Familiars)
+                    .HasForeignKey(d => d.PersonaIdPersona)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_Familia_Persona");
+            });
+
             modelBuilder.Entity<Familium>(entity =>
             {
                 entity.HasKey(e => e.IdFamilia)
@@ -832,9 +911,13 @@ namespace Sutoss
 
                 entity.Property(e => e.FormaPagoIdFormaPago).HasColumnName("Forma_Pago_Id_Forma_Pago");
 
-                entity.Property(e => e.FpcFcancelacion).HasColumnName("fpc.fcancelacion");
+                entity.Property(e => e.FpcFcancelacion)
+                    .HasColumnType("datetime")
+                    .HasColumnName("fpc.fcancelacion");
 
-                entity.Property(e => e.FpcFpagosena).HasColumnName("fpc.fpagosena");
+                entity.Property(e => e.FpcFpagosena)
+                    .HasColumnType("datetime")
+                    .HasColumnName("fpc.fpagosena");
 
                 entity.Property(e => e.FpcMonto).HasColumnName("fpc.monto");
 
@@ -949,7 +1032,9 @@ namespace Sutoss
                     .HasMaxLength(10)
                     .HasColumnName("gasxint.monto");
 
-                entity.Property(e => e.GasxintVencimiento).HasColumnName("gasxint.vencimiento");
+                entity.Property(e => e.GasxintVencimiento)
+                    .HasColumnType("datetime")
+                    .HasColumnName("gasxint.vencimiento");
 
                 entity.Property(e => e.InstalacionIdInstalacion).HasColumnName("Instalacion_Id_Instalacion");
 
@@ -1029,7 +1114,9 @@ namespace Sutoss
                     .HasMaxLength(10)
                     .HasColumnName("impxint.monto");
 
-                entity.Property(e => e.ImpxintVto).HasColumnName("impxint.vto");
+                entity.Property(e => e.ImpxintVto)
+                    .HasColumnType("datetime")
+                    .HasColumnName("impxint.vto");
 
                 entity.Property(e => e.InstalacionIdInstalacion).HasColumnName("Instalacion_Id_Instalacion");
 
@@ -1106,6 +1193,25 @@ namespace Sutoss
                     .HasConstraintName("fk_Localidad_Departamento1");
             });
 
+            modelBuilder.Entity<LogOperacione>(entity =>
+            {
+                entity.HasKey(e => e.IdLogOperaciones)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("log_operaciones");
+
+                entity.Property(e => e.IdLogOperaciones).HasColumnName("idLog_Operaciones");
+
+                entity.Property(e => e.Operacion)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.Usuario)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .HasColumnName("usuario");
+            });
+
             modelBuilder.Entity<Mantenimiento>(entity =>
             {
                 entity.HasKey(e => e.IdMantenimiento)
@@ -1133,7 +1239,9 @@ namespace Sutoss
                     .HasMaxLength(10)
                     .HasColumnName("m.estado");
 
-                entity.Property(e => e.MFecha).HasColumnName("m.fecha");
+                entity.Property(e => e.MFecha)
+                    .HasColumnType("datetime")
+                    .HasColumnName("m.fecha");
 
                 entity.HasOne(d => d.InstalacionIdInstalacionNavigation)
                     .WithMany(p => p.Mantenimientos)
@@ -1164,7 +1272,9 @@ namespace Sutoss
                     .HasMaxLength(20)
                     .HasColumnName("mxc.estado");
 
-                entity.Property(e => e.MxcFecha).HasColumnName("mxc.fecha");
+                entity.Property(e => e.MxcFecha)
+                    .HasColumnType("datetime")
+                    .HasColumnName("mxc.fecha");
 
                 entity.Property(e => e.MxcObservacionl)
                     .HasColumnType("text")
@@ -1234,7 +1344,9 @@ namespace Sutoss
                     .HasMaxLength(20)
                     .HasColumnName("oc_estado");
 
-                entity.Property(e => e.OcFecha).HasColumnName("oc_fecha");
+                entity.Property(e => e.OcFecha)
+                    .HasColumnType("datetime")
+                    .HasColumnName("oc_fecha");
 
                 entity.Property(e => e.OcNumero).HasColumnName("oc_numero");
 
@@ -1263,7 +1375,9 @@ namespace Sutoss
                     .HasMaxLength(20)
                     .HasColumnName("op_codigo");
 
-                entity.Property(e => e.OpFecha).HasColumnName("op.fecha");
+                entity.Property(e => e.OpFecha)
+                    .HasColumnType("datetime")
+                    .HasColumnName("op.fecha");
 
                 entity.Property(e => e.OpMonto)
                     .IsRequired()
@@ -1351,13 +1465,9 @@ namespace Sutoss
 
                 entity.ToTable("persona");
 
-                entity.HasIndex(e => e.PersonaIdPersona, "fk_Persona_Persona1");
-
                 entity.Property(e => e.IdPersona).HasColumnName("Id_Persona");
 
                 entity.Property(e => e.PerAntiguedad).HasColumnName("per_antiguedad");
-
-                entity.Property(e => e.PerCuit).HasColumnName("per_cuit");
 
                 entity.Property(e => e.PerDni).HasColumnName("per_dni");
 
@@ -1367,23 +1477,9 @@ namespace Sutoss
 
                 entity.Property(e => e.PerEdad).HasColumnName("per_edad");
 
-                entity.Property(e => e.PerEsposa)
-                    .HasMaxLength(2)
-                    .HasColumnName("per_esposa")
-                    .IsFixedLength()
-                    .UseCollation("utf8_general_ci");
-
                 entity.Property(e => e.PerEstadocivil)
                     .HasMaxLength(45)
                     .HasColumnName("per_estadocivil");
-
-                entity.Property(e => e.PerHijos)
-                    .HasMaxLength(2)
-                    .HasColumnName("per_hijos")
-                    .IsFixedLength()
-                    .UseCollation("utf8_general_ci");
-
-                entity.Property(e => e.PerHijosCant).HasColumnName("per_hijos_cant");
 
                 entity.Property(e => e.PerNafiliadio).HasColumnName("per_nafiliadio");
 
@@ -1392,32 +1488,18 @@ namespace Sutoss
                     .HasMaxLength(80)
                     .HasColumnName("per_nombre");
 
-                entity.Property(e => e.PerNombreHijos)
-                    .HasMaxLength(45)
-                    .HasColumnName("per_nombre_hijos");
-
                 entity.Property(e => e.PerPuesto)
-                    .IsRequired()
                     .HasMaxLength(45)
                     .HasColumnName("per_puesto");
 
                 entity.Property(e => e.PerTipo)
-                    .IsRequired()
                     .HasMaxLength(45)
                     .HasColumnName("per_tipo");
-
-                entity.Property(e => e.PersonaIdPersona).HasColumnName("Persona_Id_Persona");
 
                 entity.Property(e => e.Pertelefono)
                     .IsRequired()
                     .HasMaxLength(80)
                     .HasColumnName("pertelefono");
-
-                entity.HasOne(d => d.PersonaIdPersonaNavigation)
-                    .WithMany(p => p.InversePersonaIdPersonaNavigation)
-                    .HasForeignKey(d => d.PersonaIdPersona)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_Persona_Persona1");
             });
 
             modelBuilder.Entity<Premio>(entity =>
@@ -1490,7 +1572,9 @@ namespace Sutoss
                     .HasMaxLength(20)
                     .HasColumnName("pp.estado");
 
-                entity.Property(e => e.PpFecha).HasColumnName("pp.fecha");
+                entity.Property(e => e.PpFecha)
+                    .HasColumnType("datetime")
+                    .HasColumnName("pp.fecha");
 
                 entity.Property(e => e.PpObrsevacion)
                     .HasColumnType("text")
@@ -1536,7 +1620,9 @@ namespace Sutoss
                     .HasMaxLength(6)
                     .HasColumnName("p.estado");
 
-                entity.Property(e => e.PFCompra).HasColumnName("p.f_compra");
+                entity.Property(e => e.PFCompra)
+                    .HasColumnType("datetime")
+                    .HasColumnName("p.f_compra");
 
                 entity.Property(e => e.PNombre)
                     .IsRequired()
@@ -1569,7 +1655,9 @@ namespace Sutoss
                     .HasMaxLength(45)
                     .HasColumnName("pa.estado_producto");
 
-                entity.Property(e => e.PaFecha).HasColumnName("pa.fecha");
+                entity.Property(e => e.PaFecha)
+                    .HasColumnType("datetime")
+                    .HasColumnName("pa.fecha");
 
                 entity.Property(e => e.ProductoIdProducto).HasColumnName("Producto_Id_Producto");
 
@@ -1700,7 +1788,9 @@ namespace Sutoss
 
                 entity.Property(e => e.SCantidad).HasColumnName("s.cantidad");
 
-                entity.Property(e => e.SFecha).HasColumnName("s.fecha");
+                entity.Property(e => e.SFecha)
+                    .HasColumnType("datetime")
+                    .HasColumnName("s.fecha");
 
                 entity.HasOne(d => d.BeneficioIdBeneficioNavigation)
                     .WithMany(p => p.Suscripcions)
@@ -1740,6 +1830,36 @@ namespace Sutoss
                     .IsRequired()
                     .HasMaxLength(80)
                     .HasColumnName("t.Nombre");
+            });
+
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.HasKey(e => e.IdUser)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("user");
+
+                entity.Property(e => e.IdUser).HasColumnName("idUser");
+
+                entity.Property(e => e.Hash)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .HasColumnName("hash");
+
+                entity.Property(e => e.Usermail)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .HasColumnName("usermail");
+
+                entity.Property(e => e.Usernombre)
+                    .IsRequired()
+                    .HasMaxLength(45)
+                    .HasColumnName("usernombre");
+
+                entity.Property(e => e.Userrol)
+                    .IsRequired()
+                    .HasMaxLength(45)
+                    .HasColumnName("userrol");
             });
 
             modelBuilder.Entity<Vicnulo>(entity =>

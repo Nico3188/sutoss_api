@@ -6,7 +6,7 @@ namespace Sutoss
     public partial class ProductoAsignado
     {
         public int IdProductoAsignado { get; set; }
-        public DateOnly PaFecha { get; set; }
+        public DateTime PaFecha { get; set; }
         public string PaEstadoProducto { get; set; }
         public int InstalacionIdInstalacion { get; set; }
         public int ProductoIdProducto { get; set; }

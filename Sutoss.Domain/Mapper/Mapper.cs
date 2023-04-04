@@ -28,6 +28,7 @@ namespace Sutoss.Domain.Services.Mapper
             CreateMap<AnticipoRequest,Anticipo>();
             CreateMap<BeneficioRequest,Beneficio>();
             CreateMap<PersonaRequest,Persona>();
+            CreateMap<FamiliarRequest,Familiar>(); 
             CreateMap<DesignacionRequest,Designacion>();
             CreateMap<TurnoRequest,Turno>();
             CreateMap<EventoRequest,Evento>();
@@ -71,7 +72,8 @@ namespace Sutoss.Domain.Services.Mapper
             CreateMap<Multum, MultumResponse>(); 
             CreateMap<FpContrato,FpContratoResponse>();
             CreateMap<FormaPago, FormaPagoResponse>();
-            CreateMap<Persona,PersonaResponse>();  
+            CreateMap<Persona,PersonaResponse>();
+            CreateMap<Familiar,FamiliarResponse>();  
             CreateMap<Designacion,DesignacionResponse>();
             CreateMap<Turno,TurnoResponse>();
             CreateMap<Evento,EventoResponse>();

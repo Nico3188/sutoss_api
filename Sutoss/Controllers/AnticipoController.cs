@@ -26,7 +26,7 @@ namespace Sutoss.Controllers
         }
 
         [HttpGet("GetAll")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> GetAll([FromQuery] int? s, [FromQuery] string q, [FromQuery] int? l)
         {
             try
@@ -56,7 +56,7 @@ namespace Sutoss.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> GetById(int id)
         {
             try
@@ -87,7 +87,7 @@ namespace Sutoss.Controllers
         }
 
         [HttpPost("Create")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> Create(AnticipoRequest newAnticipo)
         {
             try 
@@ -118,7 +118,7 @@ namespace Sutoss.Controllers
         }
 
         [HttpPut("Update")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> Update(AnticipoRequest Anticipo)
         {
             try
@@ -148,7 +148,7 @@ namespace Sutoss.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             try

@@ -15,15 +15,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
+using Microsoft.EntityFrameworkCore;
 
 namespace Sutoss.Domain.Services.Domain.Services
 {
     public class AnticiposService : BaseService, IAnticiposService
     {
+        private readonly IPersonaRepository _PersonaRepository;
         private readonly IAnticipoRepository _AnticipoRepository;
         private readonly DomainSettings _appSettings;
         private readonly IMapper _mapper;
         public AnticiposService(
+
+            IPersonaRepository PersonaRepository,
             IAnticipoRepository AnticipoRepository,
             IMapper mapper,
             IOptions<DomainSettings> appSettings) : base()
@@ -31,13 +35,19 @@ namespace Sutoss.Domain.Services.Domain.Services
             _AnticipoRepository = AnticipoRepository;
             _appSettings = appSettings.Value;
             _mapper = mapper;
+            _PersonaRepository = PersonaRepository;
         }
         public async Task<AnticipoResponse> Create(AnticipoRequest newAnticipo )
         {
             var transaction = _AnticipoRepository.BeginTransaction();
             try
             {
-
+                var persona = (await _PersonaRepository.All()).FirstOrDefault(x=>x.PerNafiliadio==newAnticipo.PerNafiliadio);
+                if (persona==null){
+                    throw new NotFoundException ("No se registra el usuario con numero de legajo" + persona.PerNafiliadio );
+                }
+                // newAnticipo.PerNombre=persona.PerNombre;
+                newAnticipo.PersonaIdPersona=persona.IdPersona;
                 Anticipo entity= _mapper.Map<Anticipo>(newAnticipo);
                 var addedAnticipo = await _AnticipoRepository.Insert(entity);
                 transaction.Commit();
@@ -77,7 +87,7 @@ namespace Sutoss.Domain.Services.Domain.Services
             {
                 s = s != null && s.Value != 0 ? s.Value - 1 : 0;
                 l = l ?? 10;
-                IQueryable<Anticipo> items = await _AnticipoRepository.All();
+                IQueryable<Anticipo> items = (await _AnticipoRepository.All()).Include(x=>x.PersonaIdPersonaNavigation);
                 items = ApplyFilterAndPagination(items, s.Value, q, l.Value);
                 return _mapper.Map<List<AnticipoResponse>>(items);
             }

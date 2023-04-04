@@ -8,7 +8,7 @@ namespace Sutoss
         public int IdRdenPago { get; set; }
         public string OpCodigo { get; set; }
         public int? OpNumero { get; set; }
-        public DateOnly OpFecha { get; set; }
+        public DateTime OpFecha { get; set; }
         public string OpMonto { get; set; }
         public int ProveedorIdProveedor { get; set; }
 

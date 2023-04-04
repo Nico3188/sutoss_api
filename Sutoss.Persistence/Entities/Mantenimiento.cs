@@ -12,7 +12,7 @@ namespace Sutoss
         }
 
         public int IdMantenimiento { get; set; }
-        public DateOnly MFecha { get; set; }
+        public DateTime MFecha { get; set; }
         public string MEstado { get; set; }
         public string MCosto { get; set; }
         public string MAcargo { get; set; }
