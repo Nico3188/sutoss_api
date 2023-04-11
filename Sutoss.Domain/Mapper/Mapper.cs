@@ -10,6 +10,10 @@ namespace Sutoss.Domain.Services.Mapper
         {
             ///// Request
             //CreateMap<BundleRequest, Bundle>();
+            CreateMap<ConocimientoRequest,Conocimiento>();
+            CreateMap<IdiomaRequest,Idioma>();
+            CreateMap<ExpereiciaLaboralRequest,ExpereiciaLaboral>();
+            CreateMap<PostulanteRequest,Postulante>();
             CreateMap<ProvinciumRequest,Provincium>();
             CreateMap<DepartamentoRequest,Departamento>();
             CreateMap<LocalidadRequest,Localidad>();
@@ -55,6 +59,10 @@ namespace Sutoss.Domain.Services.Mapper
             
             ///// Responses
             //CreateMap<Bundle, BundleResponse>();
+            CreateMap<Conocimiento,ConocimientoResponse>();
+            CreateMap<Idioma,IdiomaResponse>();
+            CreateMap<ExpereiciaLaboral,ExpereiciaLaboralResponse>();
+            CreateMap<Postulante,PostulanteResponse>();
             CreateMap<Prestamo, PrestamoResponse>();
             CreateMap<Prestamosxpersona,PrestamosxpersonaResponse>();
             CreateMap<CuotaPrestamo,CuotaPrestamoResponse>();

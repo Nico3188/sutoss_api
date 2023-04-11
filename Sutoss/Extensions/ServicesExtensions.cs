@@ -27,6 +27,10 @@ namespace Sutoss.Extensions
 
         public static void ConfigureRepos(this IServiceCollection services)
         {
+            services.AddScoped<IConocimientoRepository, ConocimientoRepository>();
+            services.AddScoped<IIdiomaRepository,IdiomaRepository>();
+            services.AddScoped<IExpereiciaLaboralRepository,ExpereiciaLaboralRepository>();
+            services.AddScoped<IPostulanteRepository,PostulanteRepository>();
             services.AddScoped<IAnticipoRepository,AnticipoRepository>();
             services.AddScoped<IProvinciumRepository, ProvinciumRepository>();
             services.AddScoped<IDepartamentoRepository, DepartamentoRepository>();
@@ -73,6 +77,10 @@ namespace Sutoss.Extensions
         }
         public static void ConfigureInnerServices(this IServiceCollection services)
         {
+            services.AddScoped<IConocimientosService,ConocimientosService>();
+            services.AddScoped<IIdiomasService,IdiomasService>();
+            services.AddScoped<IExpereiciaLaboralsService,ExpereiciaLaboralsService>();
+            services.AddScoped<IPostulantesService,PostulantesService>();
             services.AddScoped<IAnticiposService, AnticiposService>();
             services.AddScoped<IProvinciaService, ProvinciaService>();
             services.AddScoped<IDepartamentosService, DepartamentosService>();

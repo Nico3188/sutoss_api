@@ -23,6 +23,7 @@ namespace Sutoss
         public virtual DbSet<Checkxcontrato> Checkxcontratos { get; set; }
         public virtual DbSet<Cheklist> Cheklists { get; set; }
         public virtual DbSet<Compra> Compras { get; set; }
+        public virtual DbSet<Conocimiento> Conocimientos { get; set; }
         public virtual DbSet<Contrato> Contratos { get; set; }
         public virtual DbSet<Convenio> Convenios { get; set; }
         public virtual DbSet<Convenioxprov> Convenioxprovs { get; set; }
@@ -38,6 +39,7 @@ namespace Sutoss
         public virtual DbSet<Dium> Dia { get; set; }
         public virtual DbSet<Enferemedad> Enferemedads { get; set; }
         public virtual DbSet<Evento> Eventos { get; set; }
+        public virtual DbSet<ExpereiciaLaboral> ExpereiciaLaborals { get; set; }
         public virtual DbSet<Factura> Facturas { get; set; }
         public virtual DbSet<Familiar> Familiars { get; set; }
         public virtual DbSet<Familium> Familia { get; set; }
@@ -47,6 +49,7 @@ namespace Sutoss
         public virtual DbSet<Gasto> Gastos { get; set; }
         public virtual DbSet<Gastoxinst> Gastoxinsts { get; set; }
         public virtual DbSet<Horario> Horarios { get; set; }
+        public virtual DbSet<Idioma> Idiomas { get; set; }
         public virtual DbSet<Impuesto> Impuestos { get; set; }
         public virtual DbSet<Impxinstalacion> Impxinstalacions { get; set; }
         public virtual DbSet<Instalacion> Instalacions { get; set; }
@@ -60,6 +63,7 @@ namespace Sutoss
         public virtual DbSet<PedidoProducto> PedidoProductos { get; set; }
         public virtual DbSet<Perfil> Perfils { get; set; }
         public virtual DbSet<Persona> Personas { get; set; }
+        public virtual DbSet<Postulante> Postulantes { get; set; }
         public virtual DbSet<Premio> Premios { get; set; }
         public virtual DbSet<Prestamo> Prestamos { get; set; }
         public virtual DbSet<Prestamosxpersona> Prestamosxpersonas { get; set; }
@@ -347,6 +351,42 @@ namespace Sutoss
                     .HasForeignKey(d => d.OrdenCompraIdOrdenCompra)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Compra_Orden_Compra1");
+            });
+
+            modelBuilder.Entity<Conocimiento>(entity =>
+            {
+                entity.HasKey(e => e.IdConocimiento)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("conocimientos");
+
+                entity.HasIndex(e => e.PostulanteIdPostulante, "fk_Conocimiento_Postulante_idx");
+
+                entity.Property(e => e.IdConocimiento)
+                    .ValueGeneratedNever()
+                    .HasColumnName("idConocimiento");
+
+                entity.Property(e => e.Conconocimiento)
+                    .IsRequired()
+                    .HasMaxLength(80)
+                    .HasColumnName("conconocimiento");
+
+                entity.Property(e => e.Condescripcion)
+                    .HasMaxLength(100)
+                    .HasColumnName("condescripcion");
+
+                entity.Property(e => e.Connivel)
+                    .HasMaxLength(20)
+                    .HasColumnName("connivel")
+                    .HasComment("junior / intermedio / avanzado");
+
+                entity.Property(e => e.PostulanteIdPostulante).HasColumnName("Postulante_id_Postulante");
+
+                entity.HasOne(d => d.PostulanteIdPostulanteNavigation)
+                    .WithMany(p => p.Conocimientos)
+                    .HasForeignKey(d => d.PostulanteIdPostulante)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_Conocimiento_Postulante");
             });
 
             modelBuilder.Entity<Contrato>(entity =>
@@ -777,6 +817,47 @@ namespace Sutoss
                     .HasColumnName("e.ubicacion");
             });
 
+            modelBuilder.Entity<ExpereiciaLaboral>(entity =>
+            {
+                entity.HasKey(e => e.IdExpereiciaLaboral)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("expereicia_laboral");
+
+                entity.HasIndex(e => e.PostulanteIdPostulante, "fk_Experiencia_Laboral_Postulanta_idx");
+
+                entity.Property(e => e.IdExpereiciaLaboral).HasColumnName("idExpereicia_Laboral");
+
+                entity.Property(e => e.Expegreso)
+                    .HasMaxLength(30)
+                    .HasColumnName("expegreso");
+
+                entity.Property(e => e.Expempresa)
+                    .IsRequired()
+                    .HasMaxLength(90)
+                    .HasColumnName("expempresa");
+
+                entity.Property(e => e.Expfingreso)
+                    .HasMaxLength(30)
+                    .HasColumnName("expfingreso");
+
+                entity.Property(e => e.Expmotivobaja)
+                    .HasMaxLength(90)
+                    .HasColumnName("expmotivobaja");
+
+                entity.Property(e => e.Exptareas)
+                    .HasColumnType("text")
+                    .HasColumnName("exptareas");
+
+                entity.Property(e => e.PostulanteIdPostulante).HasColumnName("Postulante_id_Postulante");
+
+                entity.HasOne(d => d.PostulanteIdPostulanteNavigation)
+                    .WithMany(p => p.ExpereiciaLaborals)
+                    .HasForeignKey(d => d.PostulanteIdPostulante)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_Experiencia_Laboral_Postulanta");
+            });
+
             modelBuilder.Entity<Factura>(entity =>
             {
                 entity.HasKey(e => e.IdFactura)
@@ -1073,6 +1154,49 @@ namespace Sutoss
                 entity.Property(e => e.HNombre)
                     .HasMaxLength(45)
                     .HasColumnName("h.nombre");
+            });
+
+            modelBuilder.Entity<Idioma>(entity =>
+            {
+                entity.HasKey(e => e.IdIdioma)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("idioma");
+
+                entity.HasIndex(e => e.PersonaIdPersona, "fk_Idioma_Persona_idx");
+
+                entity.Property(e => e.IdIdioma).HasColumnName("idIdioma");
+
+                entity.Property(e => e.Idiconversacion)
+                    .HasMaxLength(10)
+                    .HasColumnName("idiconversacion");
+
+                entity.Property(e => e.Idiescritura)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .HasColumnName("idiescritura");
+
+                entity.Property(e => e.Idiidioma)
+                    .IsRequired()
+                    .HasMaxLength(45)
+                    .HasColumnName("idiidioma");
+
+                entity.Property(e => e.Idiinstitucion)
+                    .IsRequired()
+                    .HasMaxLength(80)
+                    .HasColumnName("idiinstitucion");
+
+                entity.Property(e => e.Idilectura)
+                    .HasMaxLength(10)
+                    .HasColumnName("idilectura");
+
+                entity.Property(e => e.PersonaIdPersona).HasColumnName("Persona_Id_Persona");
+
+                entity.HasOne(d => d.PersonaIdPersonaNavigation)
+                    .WithMany(p => p.Idiomas)
+                    .HasForeignKey(d => d.PersonaIdPersona)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_Idioma_Persona");
             });
 
             modelBuilder.Entity<Impuesto>(entity =>
@@ -1477,9 +1601,18 @@ namespace Sutoss
 
                 entity.Property(e => e.PerEdad).HasColumnName("per_edad");
 
+                entity.Property(e => e.PerEstado)
+                    .HasMaxLength(20)
+                    .HasColumnName("per_estado")
+                    .HasComment("Activo, jubilado, Fallecido");
+
                 entity.Property(e => e.PerEstadocivil)
                     .HasMaxLength(45)
                     .HasColumnName("per_estadocivil");
+
+                entity.Property(e => e.PerFechnac)
+                    .HasColumnType("datetime")
+                    .HasColumnName("per_fechnac");
 
                 entity.Property(e => e.PerNafiliadio).HasColumnName("per_nafiliadio");
 
@@ -1494,12 +1627,103 @@ namespace Sutoss
 
                 entity.Property(e => e.PerTipo)
                     .HasMaxLength(45)
-                    .HasColumnName("per_tipo");
+                    .HasColumnName("per_tipo")
+                    .HasComment("Borrado, NoBorrado");
 
                 entity.Property(e => e.Pertelefono)
                     .IsRequired()
                     .HasMaxLength(80)
                     .HasColumnName("pertelefono");
+            });
+
+            modelBuilder.Entity<Postulante>(entity =>
+            {
+                entity.HasKey(e => e.IdPostulante)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("postulante");
+
+                entity.HasIndex(e => e.PersonaIdPersona, "fk_Postulante_Persona_idx");
+
+                entity.Property(e => e.IdPostulante).HasColumnName("idPostulante");
+
+                entity.Property(e => e.PersonaIdPersona).HasColumnName("Persona_Id_Persona");
+
+                entity.Property(e => e.PostApellido)
+                    .IsRequired()
+                    .HasMaxLength(45)
+                    .HasColumnName("postApellido");
+
+                entity.Property(e => e.PostCategoriareg)
+                    .HasMaxLength(6)
+                    .HasColumnName("postCategoriareg");
+
+                entity.Property(e => e.PostDni).HasColumnName("postDNI");
+
+                entity.Property(e => e.PostEstcivil)
+                    .HasMaxLength(25)
+                    .HasColumnName("postEstcivil");
+
+                entity.Property(e => e.PostFnac)
+                    .HasColumnType("datetime")
+                    .HasColumnName("postFnac");
+
+                entity.Property(e => e.PostLugNac)
+                    .HasMaxLength(80)
+                    .HasColumnName("postLugNac");
+
+                entity.Property(e => e.PostNacionalidad)
+                    .HasMaxLength(25)
+                    .HasColumnName("postNacionalidad");
+
+                entity.Property(e => e.PostNivelalcanzado)
+                    .HasMaxLength(44)
+                    .HasColumnName("postNivelalcanzado")
+                    .HasComment("finalizado / incompleto / cursando\n");
+
+                entity.Property(e => e.PostNivelestu)
+                    .HasMaxLength(45)
+                    .HasColumnName("postNivelestu");
+
+                entity.Property(e => e.PostNombre)
+                    .IsRequired()
+                    .HasMaxLength(45)
+                    .HasColumnName("postNombre");
+
+                entity.Property(e => e.PostNombreinst)
+                    .HasMaxLength(80)
+                    .HasColumnName("postNombreinst");
+
+                entity.Property(e => e.PostRegConducir)
+                    .HasMaxLength(2)
+                    .HasColumnName("postRegConducir")
+                    .HasComment("SI/No");
+
+                entity.Property(e => e.PostTituloobt)
+                    .HasMaxLength(80)
+                    .HasColumnName("postTituloobt");
+
+                entity.Property(e => e.Postcorreo)
+                    .HasMaxLength(45)
+                    .HasColumnName("postcorreo");
+
+                entity.Property(e => e.Postdomicilio)
+                    .HasMaxLength(80)
+                    .HasColumnName("postdomicilio");
+
+                entity.Property(e => e.Postel).HasColumnName("postel");
+
+                entity.Property(e => e.Postfsolicitud)
+                    .HasColumnType("datetime")
+                    .HasColumnName("postfsolicitud");
+
+                entity.Property(e => e.Postnumsolicitud).HasColumnName("postnumsolicitud");
+
+                entity.HasOne(d => d.PersonaIdPersonaNavigation)
+                    .WithMany(p => p.Postulantes)
+                    .HasForeignKey(d => d.PersonaIdPersona)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_Postulante_Persona");
             });
 
             modelBuilder.Entity<Premio>(entity =>

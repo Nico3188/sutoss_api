@@ -13,6 +13,8 @@ namespace Sutoss
             Contratos = new HashSet<Contrato>();
             Designacions = new HashSet<Designacion>();
             Familiars = new HashSet<Familiar>();
+            Idiomas = new HashSet<Idioma>();
+            Postulantes = new HashSet<Postulante>();
             Prestamosxpersonas = new HashSet<Prestamosxpersona>();
             Suscripcions = new HashSet<Suscripcion>();
         }
@@ -24,10 +26,18 @@ namespace Sutoss
         public string Pertelefono { get; set; }
         public string PerEstadocivil { get; set; }
         public int PerNafiliadio { get; set; }
+        /// <summary>
+        /// Borrado, NoBorrado
+        /// </summary>
         public string PerTipo { get; set; }
         public string PerPuesto { get; set; }
         public int? PerAntiguedad { get; set; }
         public int? PerEdad { get; set; }
+        /// <summary>
+        /// Activo, jubilado, Fallecido
+        /// </summary>
+        public string PerEstado { get; set; }
+        public DateTime? PerFechnac { get; set; }
 
         public virtual ICollection<Alquiler> Alquilers { get; set; }
         public virtual ICollection<Anticipo> Anticipos { get; set; }
@@ -35,6 +45,8 @@ namespace Sutoss
         public virtual ICollection<Contrato> Contratos { get; set; }
         public virtual ICollection<Designacion> Designacions { get; set; }
         public virtual ICollection<Familiar> Familiars { get; set; }
+        public virtual ICollection<Idioma> Idiomas { get; set; }
+        public virtual ICollection<Postulante> Postulantes { get; set; }
         public virtual ICollection<Prestamosxpersona> Prestamosxpersonas { get; set; }
         public virtual ICollection<Suscripcion> Suscripcions { get; set; }
     }

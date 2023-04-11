@@ -12,6 +12,7 @@ namespace Sutoss
         public string AAprobado { get; set; }
         public string AEstado { get; set; }
         public int PersonaIdPersona { get; set; }
+
         public virtual Persona PersonaIdPersonaNavigation { get; set; }
     }
 }
