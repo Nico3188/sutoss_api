@@ -11,8 +11,8 @@ namespace Sutoss
         public string Idiescritura { get; set; }
         public string Idilectura { get; set; }
         public string Idiconversacion { get; set; }
-        public int PersonaIdPersona { get; set; }
+        public int PostulanteIdPostulante { get; set; }
 
-        public virtual Persona PersonaIdPersonaNavigation { get; set; }
+        public virtual Postulante PostulanteIdPostulanteNavigation { get; set; }
     }
 }

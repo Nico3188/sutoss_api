@@ -82,14 +82,14 @@ namespace Sutoss
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseMySql("server=localhost;port=3306;database=Sutoss;uid=root;password=SoloyoNS311088", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.28-mysql"));
+                optionsBuilder.UseMySql("server=localhost;port=3306;database=sutoss;uid=root;password=SoloyoNS311088", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.32-mysql"));
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.UseCollation("utf8_spanish_ci")
-                .HasCharSet("utf8");
+            modelBuilder.UseCollation("utf8mb4_0900_ai_ci")
+                .HasCharSet("utf8mb4");
 
             modelBuilder.Entity<Alquiler>(entity =>
             {
@@ -97,6 +97,9 @@ namespace Sutoss
                     .HasName("PRIMARY");
 
                 entity.ToTable("alquiler");
+
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
 
                 entity.HasIndex(e => e.InstalacionIdInstalacion, "fk_Alquiler_Instalacion1");
 
@@ -142,6 +145,9 @@ namespace Sutoss
 
                 entity.ToTable("anticipo");
 
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
+
                 entity.HasIndex(e => e.PersonaIdPersona, "fk_Anticipo_Persona_idx");
 
                 entity.Property(e => e.IdAnticipo).HasColumnName("Id_Anticipo");
@@ -185,6 +191,9 @@ namespace Sutoss
 
                 entity.ToTable("beneficio");
 
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
+
                 entity.Property(e => e.IdBeneficio).HasColumnName("Id_Beneficio");
 
                 entity.Property(e => e.BDescripcion)
@@ -204,6 +213,9 @@ namespace Sutoss
                     .HasName("PRIMARY");
 
                 entity.ToTable("celebracion");
+
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
 
                 entity.HasIndex(e => e.EventoIdEvento, "fk_Celebracion_Evento1");
 
@@ -243,6 +255,9 @@ namespace Sutoss
                     .HasName("PRIMARY");
 
                 entity.ToTable("checkxcontrato");
+
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
 
                 entity.HasIndex(e => e.CheklistIdChecklist, "fk_CheckxContrato_Cheklist1");
 
@@ -291,6 +306,9 @@ namespace Sutoss
 
                 entity.ToTable("cheklist");
 
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
+
                 entity.Property(e => e.IdChecklist).HasColumnName("Id_Checklist");
 
                 entity.Property(e => e.ChCodigo)
@@ -318,6 +336,9 @@ namespace Sutoss
                     .HasName("PRIMARY");
 
                 entity.ToTable("compra");
+
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
 
                 entity.HasIndex(e => e.OrdenCompraIdOrdenCompra, "fk_Compra_Orden_Compra1");
 
@@ -360,6 +381,9 @@ namespace Sutoss
 
                 entity.ToTable("conocimientos");
 
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
+
                 entity.HasIndex(e => e.PostulanteIdPostulante, "fk_Conocimiento_Postulante_idx");
 
                 entity.Property(e => e.IdConocimiento)
@@ -395,6 +419,9 @@ namespace Sutoss
                     .HasName("PRIMARY");
 
                 entity.ToTable("contrato");
+
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
 
                 entity.HasIndex(e => e.AlquilerIdAlquiler, "fk_Contrato_Alquiler1");
 
@@ -439,6 +466,9 @@ namespace Sutoss
 
                 entity.ToTable("convenio");
 
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
+
                 entity.Property(e => e.IdConvenio).HasColumnName("Id_Convenio");
 
                 entity.Property(e => e.ConDescripcion)
@@ -463,6 +493,9 @@ namespace Sutoss
                     .HasName("PRIMARY");
 
                 entity.ToTable("convenioxprov");
+
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
 
                 entity.Property(e => e.IdConvenioxProv).HasColumnName("Id_ConvenioxProv");
 
@@ -490,6 +523,9 @@ namespace Sutoss
 
                 entity.ToTable("cuota_pp");
 
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
+
                 entity.Property(e => e.IdCuotaPp).HasColumnName("Id_Cuota_PP");
 
                 entity.Property(e => e.CppCuota)
@@ -513,6 +549,9 @@ namespace Sutoss
                     .HasName("PRIMARY");
 
                 entity.ToTable("cuota_prestamo");
+
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
 
                 entity.Property(e => e.IdCuotaPrestamo).HasColumnName("idCuota_prestamo");
 
@@ -541,6 +580,9 @@ namespace Sutoss
 
                 entity.ToTable("cuota");
 
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
+
                 entity.Property(e => e.IdCouta).HasColumnName("Id_couta");
 
                 entity.Property(e => e.CoutaNombre)
@@ -559,6 +601,9 @@ namespace Sutoss
                     .HasName("PRIMARY");
 
                 entity.ToTable("departamento");
+
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
 
                 entity.HasIndex(e => e.ProvinciaIdProvincia, "fk_Departamento_Provincia1");
 
@@ -584,6 +629,9 @@ namespace Sutoss
                     .HasName("PRIMARY");
 
                 entity.ToTable("designacion");
+
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
 
                 entity.HasIndex(e => e.InstalacionIdInstalacion, "fk_Designacion_Instalacion1");
 
@@ -638,6 +686,9 @@ namespace Sutoss
 
                 entity.ToTable("detalle_compra");
 
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
+
                 entity.HasIndex(e => e.CompraIdCompra, "fk_Detalle_Compra_Compra1");
 
                 entity.HasIndex(e => e.ProductoIdProducto, "fk_Detalle_Compra_Producto1");
@@ -676,6 +727,9 @@ namespace Sutoss
 
                 entity.ToTable("detalle_factura");
 
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
+
                 entity.HasIndex(e => e.FacturaIdFactura, "fk_detalle_Factura_Factura1");
 
                 entity.Property(e => e.IddetalleFactura).HasColumnName("iddetalle_Factura");
@@ -697,6 +751,9 @@ namespace Sutoss
                     .HasName("PRIMARY");
 
                 entity.ToTable("detalle_mantenimiento");
+
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
 
                 entity.HasIndex(e => e.MantenimientoIdMantenimiento, "fk_Detalle_Mantenimiento_Mantenimiento1");
 
@@ -740,6 +797,9 @@ namespace Sutoss
 
                 entity.ToTable("diciplina");
 
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
+
                 entity.Property(e => e.IdDiciplina).HasColumnName("Id_Diciplina");
 
                 entity.Property(e => e.DDescripcion)
@@ -763,6 +823,9 @@ namespace Sutoss
 
                 entity.ToTable("dia");
 
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
+
                 entity.Property(e => e.IdDia).HasColumnName("Id_Dia");
 
                 entity.Property(e => e.Nombre)
@@ -776,6 +839,9 @@ namespace Sutoss
                     .HasName("PRIMARY");
 
                 entity.ToTable("enferemedad");
+
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
 
                 entity.Property(e => e.IdEnferemedad).HasColumnName("Id_Enferemedad");
 
@@ -791,6 +857,9 @@ namespace Sutoss
                     .HasName("PRIMARY");
 
                 entity.ToTable("evento");
+
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
 
                 entity.Property(e => e.IdEvento).HasColumnName("Id_Evento");
 
@@ -824,6 +893,9 @@ namespace Sutoss
 
                 entity.ToTable("expereicia_laboral");
 
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
+
                 entity.HasIndex(e => e.PostulanteIdPostulante, "fk_Experiencia_Laboral_Postulanta_idx");
 
                 entity.Property(e => e.IdExpereiciaLaboral).HasColumnName("idExpereicia_Laboral");
@@ -845,6 +917,11 @@ namespace Sutoss
                     .HasMaxLength(90)
                     .HasColumnName("expmotivobaja");
 
+                entity.Property(e => e.Exppuesto)
+                    .IsRequired()
+                    .HasMaxLength(90)
+                    .HasColumnName("exppuesto");
+
                 entity.Property(e => e.Exptareas)
                     .HasColumnType("text")
                     .HasColumnName("exptareas");
@@ -864,6 +941,9 @@ namespace Sutoss
                     .HasName("PRIMARY");
 
                 entity.ToTable("factura");
+
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
 
                 entity.HasIndex(e => e.CompraIdCompra, "fk_Factura_Compra1");
 
@@ -907,6 +987,9 @@ namespace Sutoss
 
                 entity.ToTable("familiar");
 
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
+
                 entity.HasIndex(e => e.PersonaIdPersona, "fk_Familia_Persona_idx");
 
                 entity.Property(e => e.IdFamiliar).HasColumnName("idFamiliar");
@@ -949,6 +1032,9 @@ namespace Sutoss
 
                 entity.ToTable("familia");
 
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
+
                 entity.Property(e => e.IdFamilia).HasColumnName("Id_Familia");
 
                 entity.Property(e => e.Nombre)
@@ -962,6 +1048,9 @@ namespace Sutoss
                     .HasName("PRIMARY");
 
                 entity.ToTable("forma_pago");
+
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
 
                 entity.Property(e => e.IdFormaPago).HasColumnName("Id_Forma_Pago");
 
@@ -981,6 +1070,9 @@ namespace Sutoss
                     .HasName("PRIMARY");
 
                 entity.ToTable("fp-contrato");
+
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
 
                 entity.HasIndex(e => e.ContratoIdContrato, "fk_FP-Contrato_Contrato1");
 
@@ -1038,6 +1130,9 @@ namespace Sutoss
 
                 entity.ToTable("ganador");
 
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
+
                 entity.HasIndex(e => e.CelebracionIdCelebracion, "fk_Ganador_Celebracion1");
 
                 entity.HasIndex(e => e.PremioIdPremios, "fk_Ganador_Premio1");
@@ -1068,6 +1163,9 @@ namespace Sutoss
 
                 entity.ToTable("gasto");
 
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
+
                 entity.Property(e => e.IdGasto).HasColumnName("Id_Gasto");
 
                 entity.Property(e => e.GFreciencia)
@@ -1094,6 +1192,9 @@ namespace Sutoss
                     .HasName("PRIMARY");
 
                 entity.ToTable("gastoxinst");
+
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
 
                 entity.HasIndex(e => e.GastoIdGasto, "fk_GastoxInst_Gasto1");
 
@@ -1139,6 +1240,9 @@ namespace Sutoss
 
                 entity.ToTable("horario");
 
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
+
                 entity.Property(e => e.IdHorario).HasColumnName("Id_Horario");
 
                 entity.Property(e => e.HHoraFin)
@@ -1163,7 +1267,10 @@ namespace Sutoss
 
                 entity.ToTable("idioma");
 
-                entity.HasIndex(e => e.PersonaIdPersona, "fk_Idioma_Persona_idx");
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
+
+                entity.HasIndex(e => e.PostulanteIdPostulante, "fk_Idioma_Postulante_idx");
 
                 entity.Property(e => e.IdIdioma).HasColumnName("idIdioma");
 
@@ -1190,13 +1297,13 @@ namespace Sutoss
                     .HasMaxLength(10)
                     .HasColumnName("idilectura");
 
-                entity.Property(e => e.PersonaIdPersona).HasColumnName("Persona_Id_Persona");
+                entity.Property(e => e.PostulanteIdPostulante).HasColumnName("Postulante_id_Postulante");
 
-                entity.HasOne(d => d.PersonaIdPersonaNavigation)
+                entity.HasOne(d => d.PostulanteIdPostulanteNavigation)
                     .WithMany(p => p.Idiomas)
-                    .HasForeignKey(d => d.PersonaIdPersona)
+                    .HasForeignKey(d => d.PostulanteIdPostulante)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_Idioma_Persona");
+                    .HasConstraintName("fk_Idioma_Postulante");
             });
 
             modelBuilder.Entity<Impuesto>(entity =>
@@ -1205,6 +1312,9 @@ namespace Sutoss
                     .HasName("PRIMARY");
 
                 entity.ToTable("impuesto");
+
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
 
                 entity.Property(e => e.IdImpuseto).HasColumnName("Id_Impuseto");
 
@@ -1220,6 +1330,9 @@ namespace Sutoss
                     .HasName("PRIMARY");
 
                 entity.ToTable("impxinstalacion");
+
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
 
                 entity.HasIndex(e => e.ImpuestoIdImpuseto, "fk_Impxinstalacion_Impuesto1");
 
@@ -1264,6 +1377,9 @@ namespace Sutoss
 
                 entity.ToTable("instalacion");
 
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
+
                 entity.HasIndex(e => e.LocalidadIdLocalidad, "fk_Instalacion_Localidad1");
 
                 entity.Property(e => e.IdInstalacion).HasColumnName("Id_Instalacion");
@@ -1299,6 +1415,9 @@ namespace Sutoss
 
                 entity.ToTable("localidad");
 
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
+
                 entity.HasIndex(e => e.DepartamentoIdDepartamento, "fk_Localidad_Departamento1");
 
                 entity.Property(e => e.IdLocalidad).HasColumnName("Id_Localidad");
@@ -1324,6 +1443,9 @@ namespace Sutoss
 
                 entity.ToTable("log_operaciones");
 
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
+
                 entity.Property(e => e.IdLogOperaciones).HasColumnName("idLog_Operaciones");
 
                 entity.Property(e => e.Operacion)
@@ -1342,6 +1464,9 @@ namespace Sutoss
                     .HasName("PRIMARY");
 
                 entity.ToTable("mantenimiento");
+
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
 
                 entity.HasIndex(e => e.InstalacionIdInstalacion, "fk_Mantenimiento_Instalacion1");
 
@@ -1380,6 +1505,9 @@ namespace Sutoss
                     .HasName("PRIMARY");
 
                 entity.ToTable("multaxcontrato");
+
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
 
                 entity.HasIndex(e => e.ContratoIdContrato, "fk_MultaxContrato_Contrato1");
 
@@ -1424,6 +1552,9 @@ namespace Sutoss
 
                 entity.ToTable("multa");
 
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
+
                 entity.Property(e => e.IdMulta).HasColumnName("Id_Multa");
 
                 entity.Property(e => e.MDescripcion)
@@ -1448,6 +1579,9 @@ namespace Sutoss
                     .HasName("PRIMARY");
 
                 entity.ToTable("orden_compra");
+
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
 
                 entity.HasIndex(e => e.PedidoProductoIdPedidoProducto, "fk_Orden_Compra_Pedido_Producto1");
 
@@ -1490,6 +1624,9 @@ namespace Sutoss
 
                 entity.ToTable("orden_pago");
 
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
+
                 entity.HasIndex(e => e.ProveedorIdProveedor, "fk_Orden_Pago_Proveedor1");
 
                 entity.Property(e => e.IdRdenPago).HasColumnName("Id_rden_Pago");
@@ -1525,6 +1662,9 @@ namespace Sutoss
                     .HasName("PRIMARY");
 
                 entity.ToTable("pedido_producto");
+
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
 
                 entity.HasIndex(e => e.MantenimientoIdMantenimiento, "fk_Pedido_Producto_Mantenimiento1");
 
@@ -1569,6 +1709,9 @@ namespace Sutoss
 
                 entity.ToTable("perfil");
 
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
+
                 entity.Property(e => e.IdPerfil).HasColumnName("Id_Perfil");
 
                 entity.Property(e => e.Descripcion)
@@ -1588,6 +1731,9 @@ namespace Sutoss
                     .HasName("PRIMARY");
 
                 entity.ToTable("persona");
+
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
 
                 entity.Property(e => e.IdPersona).HasColumnName("Id_Persona");
 
@@ -1613,6 +1759,10 @@ namespace Sutoss
                 entity.Property(e => e.PerFechnac)
                     .HasColumnType("datetime")
                     .HasColumnName("per_fechnac");
+
+                entity.Property(e => e.PerFingresol)
+                    .HasColumnType("datetime")
+                    .HasColumnName("per_fingresol");
 
                 entity.Property(e => e.PerNafiliadio).HasColumnName("per_nafiliadio");
 
@@ -1642,6 +1792,9 @@ namespace Sutoss
                     .HasName("PRIMARY");
 
                 entity.ToTable("postulante");
+
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
 
                 entity.HasIndex(e => e.PersonaIdPersona, "fk_Postulante_Persona_idx");
 
@@ -1719,6 +1872,11 @@ namespace Sutoss
 
                 entity.Property(e => e.Postnumsolicitud).HasColumnName("postnumsolicitud");
 
+                entity.Property(e => e.Postvinculoafil)
+                    .IsRequired()
+                    .HasMaxLength(45)
+                    .HasColumnName("postvinculoafil");
+
                 entity.HasOne(d => d.PersonaIdPersonaNavigation)
                     .WithMany(p => p.Postulantes)
                     .HasForeignKey(d => d.PersonaIdPersona)
@@ -1732,6 +1890,9 @@ namespace Sutoss
                     .HasName("PRIMARY");
 
                 entity.ToTable("premio");
+
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
 
                 entity.Property(e => e.IdPremios).HasColumnName("Id_Premios");
 
@@ -1751,6 +1912,9 @@ namespace Sutoss
                     .HasName("PRIMARY");
 
                 entity.ToTable("prestamo");
+
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
 
                 entity.Property(e => e.IdPrestamo).HasColumnName("Id_Prestamo");
 
@@ -1780,6 +1944,9 @@ namespace Sutoss
                     .HasName("PRIMARY");
 
                 entity.ToTable("prestamosxpersona");
+
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
 
                 entity.HasIndex(e => e.PersonaIdPersona, "fk_Prestamosxpersona_Persona1");
 
@@ -1826,6 +1993,9 @@ namespace Sutoss
 
                 entity.ToTable("producto");
 
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
+
                 entity.Property(e => e.IdProducto).HasColumnName("Id_Producto");
 
                 entity.Property(e => e.PCantidad).HasColumnName("p.cantidad");
@@ -1866,6 +2036,9 @@ namespace Sutoss
 
                 entity.ToTable("producto_asignado");
 
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
+
                 entity.HasIndex(e => e.InstalacionIdInstalacion, "fk_Producto_Asignado_Instalacion1");
 
                 entity.HasIndex(e => e.ProductoIdProducto, "fk_Producto_Asignado_Producto1");
@@ -1904,6 +2077,9 @@ namespace Sutoss
                     .HasName("PRIMARY");
 
                 entity.ToTable("proveedor");
+
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
 
                 entity.Property(e => e.IdProveedor).HasColumnName("Id_Proveedor");
 
@@ -1950,6 +2126,9 @@ namespace Sutoss
 
                 entity.ToTable("provincia");
 
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
+
                 entity.Property(e => e.IdProvincia).HasColumnName("Id_Provincia");
 
                 entity.Property(e => e.PCodigo)
@@ -1968,6 +2147,9 @@ namespace Sutoss
                     .HasName("PRIMARY");
 
                 entity.ToTable("servicio");
+
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
 
                 entity.Property(e => e.IdServicio).HasColumnName("Id_Servicio");
 
@@ -1999,6 +2181,9 @@ namespace Sutoss
                     .HasName("PRIMARY");
 
                 entity.ToTable("suscripcion");
+
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
 
                 entity.HasIndex(e => e.BeneficioIdBeneficio, "fk_Suscripcion_Beneficio1");
 
@@ -2036,6 +2221,9 @@ namespace Sutoss
 
                 entity.ToTable("turno");
 
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
+
                 entity.Property(e => e.IdTurno).HasColumnName("Id_Turno");
 
                 entity.Property(e => e.Observacion).HasMaxLength(80);
@@ -2062,6 +2250,9 @@ namespace Sutoss
                     .HasName("PRIMARY");
 
                 entity.ToTable("user");
+
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
 
                 entity.Property(e => e.IdUser).HasColumnName("idUser");
 
@@ -2092,6 +2283,9 @@ namespace Sutoss
                     .HasName("PRIMARY");
 
                 entity.ToTable("vicnulo");
+
+                entity.HasCharSet("utf8mb3")
+                    .UseCollation("utf8mb3_spanish_ci");
 
                 entity.Property(e => e.IdVicnulo).HasColumnName("Id_Vicnulo");
 

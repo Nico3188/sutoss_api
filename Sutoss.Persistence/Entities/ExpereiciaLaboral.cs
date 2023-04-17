@@ -7,6 +7,7 @@ namespace Sutoss
     {
         public int IdExpereiciaLaboral { get; set; }
         public string Expempresa { get; set; }
+        public string Exppuesto { get; set; }
         public string Expfingreso { get; set; }
         public string Expegreso { get; set; }
         public string Exptareas { get; set; }

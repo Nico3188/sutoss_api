@@ -9,6 +9,7 @@ namespace Sutoss
         {
             Conocimientos = new HashSet<Conocimiento>();
             ExpereiciaLaborals = new HashSet<ExpereiciaLaboral>();
+            Idiomas = new HashSet<Idioma>();
         }
 
         public int IdPostulante { get; set; }
@@ -38,9 +39,11 @@ namespace Sutoss
         public string PostTituloobt { get; set; }
         public int? Postnumsolicitud { get; set; }
         public DateTime? Postfsolicitud { get; set; }
+        public string Postvinculoafil { get; set; }
 
         public virtual Persona PersonaIdPersonaNavigation { get; set; }
         public virtual ICollection<Conocimiento> Conocimientos { get; set; }
         public virtual ICollection<ExpereiciaLaboral> ExpereiciaLaborals { get; set; }
+        public virtual ICollection<Idioma> Idiomas { get; set; }
     }
 }

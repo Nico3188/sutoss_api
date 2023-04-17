@@ -13,7 +13,7 @@ using Quartz;
 // dotnet tool install --global dotnet-ef
 // dotnet ef dbcontext scaffold "server=localhost;port=3306;database=petcare;uid=root;password=1234" Pomelo.EntityFrameworkCore.MySql --project . --startup-project . --output-dir "Z:\Personal_Projects\Sutoss\Sutoss.Persistence\Entities" --context SutossContext -f -v
 
-// dotnet ef dbcontext scaffold "server=localhost;port=3306;database=sutoss;uid=root;password=SoloyoNS311088" Pomelo.EntityFrameworkCore.MySql --project . --startup-project . --output-dir "D:\ByteTec\Sutoss\Sutoss\Sutoss.Persistence\Entities" --context SutossContext -f -v
+// dotnet ef dbcontext scaffold "server=localhost;port=3306;database=sutoss;uid=root;password=SoloyoNS311088" Pomelo.EntityFrameworkCore.MySql --project . --startup-project . --output-dir "F:\ByteTec\Sutoss\Sutoss\Sutoss.Persistence\Entities" --context SutossContext -f -v
 
 // Wolfbuilder Sutoss SutossContext Users User
 
