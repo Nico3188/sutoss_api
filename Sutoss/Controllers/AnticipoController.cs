@@ -90,12 +90,13 @@ namespace Sutoss.Controllers
         // [Authorize]
         public async Task<IActionResult> Create(AnticipoRequest newAnticipo)
         {
-            try 
+            try
             {
-                return Ok(await _service.Create(newAnticipo  ));
+                return Ok(await _service.Create(newAnticipo));
             }
             catch (NotFoundException ex)
             {
+
                 // Logger.Warn(ex);
                 return StatusCode(StatusCodes.Status404NotFound, ex.Message);
             }
@@ -111,8 +112,16 @@ namespace Sutoss.Controllers
             }
             catch (Exception ex)
             {
+                if (ex.Message == "No se registra el usuario con numero de legajo ingresado")
+                {
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "No se registra el usuario con numero de legajo ingresado");
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                }
                 // Logger.Error(ex);
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                //return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
 
         }
@@ -123,7 +132,7 @@ namespace Sutoss.Controllers
         {
             try
             {
-                return Ok(await _service.Update(Anticipo  ));
+                return Ok(await _service.Update(Anticipo));
             }
             catch (NotFoundException ex)
             {

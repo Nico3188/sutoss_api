@@ -32,7 +32,7 @@ namespace Sutoss
         public void ConfigureServices(IServiceCollection services)
         {
             var _connectionString = Configuration.GetConnectionString("MySql");
-                                                                        //Server=myServerAddress;Port=1234;Database=myDataBase;Uid=myUsername;Pwd=myPassword; 
+            //Server=myServerAddress;Port=1234;Database=myDataBase;Uid=myUsername;Pwd=myPassword; 
             // var _connectionString = Server=127.0.0.1;Port=3306;Database=Sutoss;Uid=root;Pwd=SoloyoNS311088";//colocamos la conexion a la base de datos
             services.AddDbContext<SutossContext>(options => options.UseMySql(
                 _connectionString,
@@ -45,7 +45,7 @@ namespace Sutoss
             // services.ConfigureValidators();
             services.ConfigureScheduler(Configuration);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            // services.ConfigureAutheticationV2(Configuration);
+            services.ConfigureAutheticationV2(Configuration);
             services.AddControllers();
             services.AddHttpClient();
             ConfigureSwagger(services);
@@ -81,7 +81,7 @@ namespace Sutoss
             // app.UseMiddleware<JwtMiddleware>();
             app.UseAuthentication();
             app.UseAuthorization();
-            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

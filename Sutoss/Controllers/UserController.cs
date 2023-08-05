@@ -26,7 +26,7 @@ namespace Sutoss.Controllers
         }
 
         [HttpGet("GetAll")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> GetAll([FromQuery] int? s, [FromQuery] string q, [FromQuery] int? l)
         {
             try
@@ -56,7 +56,7 @@ namespace Sutoss.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> GetById(int id)
         {
             try
@@ -86,13 +86,78 @@ namespace Sutoss.Controllers
 
         }
 
+        [HttpPost("Register")]
+        // [Authorize]
+        public async Task<IActionResult> Register(RegisterRequest newUser)
+        {
+            try
+            {
+                return Ok(await _service.Register(newUser));
+            }
+            catch (NotFoundException ex)
+            {
+                // Logger.Warn(ex);
+                return StatusCode(StatusCodes.Status404NotFound, ex.Message);
+            }
+            catch (ForbiddenException ex)
+            {
+                // Logger.Warn(ex);
+                return StatusCode(StatusCodes.Status403Forbidden, ex.Message);
+            }
+            catch (UnauthorizedException ex)
+            {
+                // Logger.Warn(ex);
+                return StatusCode(StatusCodes.Status401Unauthorized, "Username or password is incorrect");
+            }
+            catch (Exception ex)
+            {
+                // Logger.Error(ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+
+        }
+
+        [HttpPost("auth")]
+        public async Task<IActionResult> Auth([FromBody] AuthRequest request)
+        {
+            try
+            {
+                var response = await _service.Authenticate(request);
+
+                if (response == null)
+                    return BadRequest(new { message = "Username or password is incorrect" });
+
+                return Ok(response);
+            }
+            catch (NotFoundException ex)
+            {
+                // Logger.Warn(ex);
+                return StatusCode(StatusCodes.Status404NotFound, ex.Message);
+            }
+            catch (ForbiddenException ex)
+            {
+                // Logger.Warn(ex);
+                return StatusCode(StatusCodes.Status403Forbidden, ex.Message);
+            }
+            catch (UnauthorizedException ex)
+            {
+                // Logger.Warn(ex);
+                return StatusCode(StatusCodes.Status401Unauthorized, "Username or password is incorrect");
+            }
+            catch (Exception ex)
+            {
+                // Logger.Error(ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
         [HttpPost("Create")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> Create(UserRequest newUser)
         {
-            try 
+            try
             {
-                return Ok(await _service.Create(newUser  ));
+                return Ok(await _service.Create(newUser));
             }
             catch (NotFoundException ex)
             {
@@ -118,12 +183,12 @@ namespace Sutoss.Controllers
         }
 
         [HttpPut("Update")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> Update(UserRequest User)
         {
             try
             {
-                return Ok(await _service.Update(User  ));
+                return Ok(await _service.Update(User));
             }
             catch (NotFoundException ex)
             {
@@ -148,7 +213,7 @@ namespace Sutoss.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             try

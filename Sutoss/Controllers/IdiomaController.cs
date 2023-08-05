@@ -26,7 +26,7 @@ namespace Sutoss.Controllers
         }
 
         [HttpGet("GetAll")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> GetAll([FromQuery] int? s, [FromQuery] string q, [FromQuery] int? l)
         {
             try
@@ -56,7 +56,7 @@ namespace Sutoss.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> GetById(int id)
         {
             try
@@ -87,12 +87,12 @@ namespace Sutoss.Controllers
         }
 
         [HttpPost("Create")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Create(IdiomaRequest newIdioma)
         {
-            try 
+            try
             {
-                return Ok(await _service.Create(newIdioma  ));
+                return Ok(await _service.Create(newIdioma));
             }
             catch (NotFoundException ex)
             {
@@ -118,12 +118,12 @@ namespace Sutoss.Controllers
         }
 
         [HttpPut("Update")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Update(IdiomaRequest Idioma)
         {
             try
             {
-                return Ok(await _service.Update(Idioma  ));
+                return Ok(await _service.Update(Idioma));
             }
             catch (NotFoundException ex)
             {
@@ -148,7 +148,7 @@ namespace Sutoss.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             try

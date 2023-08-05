@@ -26,7 +26,7 @@ namespace Sutoss.Controllers
         }
 
         [HttpGet("GetAll")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> GetAll([FromQuery] int? s, [FromQuery] string q, [FromQuery] int? l)
         {
             try
@@ -56,7 +56,7 @@ namespace Sutoss.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> GetById(int id)
         {
             try
@@ -87,12 +87,12 @@ namespace Sutoss.Controllers
         }
 
         [HttpPost("Create")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> Create(ProductoRequest newProducto)
         {
-            try 
+            try
             {
-                return Ok(await _service.Create(newProducto  ));
+                return Ok(await _service.Create(newProducto));
             }
             catch (NotFoundException ex)
             {
@@ -111,19 +111,30 @@ namespace Sutoss.Controllers
             }
             catch (Exception ex)
             {
-                // Logger.Error(ex);
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                if (ex.Message == "El codigo duplicado")
+                {
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "El codigo duplicado");
+                }
+                else if (ex.Message == "El codigo de Barra duplicado")
+                {
+                    // Logger.Error(ex);
+                    return StatusCode(StatusCodes.Status406NotAcceptable, "El codigo de Barra duplicado");
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                }
             }
 
         }
 
         [HttpPut("Update")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> Update(ProductoRequest Producto)
         {
             try
             {
-                return Ok(await _service.Update(Producto  ));
+                return Ok(await _service.Update(Producto));
             }
             catch (NotFoundException ex)
             {
@@ -148,7 +159,7 @@ namespace Sutoss.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             try

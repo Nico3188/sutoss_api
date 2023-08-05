@@ -26,7 +26,7 @@ namespace Sutoss.Controllers
         }
 
         [HttpGet("GetAll")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> GetAll([FromQuery] int? s, [FromQuery] string q, [FromQuery] int? l)
         {
             try
@@ -56,7 +56,7 @@ namespace Sutoss.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> GetById(int id)
         {
             try
@@ -87,12 +87,12 @@ namespace Sutoss.Controllers
         }
 
         [HttpPost("Create")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Create(CuotaPrestamoRequest newCuotaPrestamo)
         {
-            try 
+            try
             {
-                return Ok(await _service.Create(newCuotaPrestamo  ));
+                return Ok(await _service.Create(newCuotaPrestamo));
             }
             catch (NotFoundException ex)
             {
@@ -118,12 +118,12 @@ namespace Sutoss.Controllers
         }
 
         [HttpPut("Update")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Update(CuotaPrestamoRequest CuotaPrestamo)
         {
             try
             {
-                return Ok(await _service.Update(CuotaPrestamo  ));
+                return Ok(await _service.Update(CuotaPrestamo));
             }
             catch (NotFoundException ex)
             {
@@ -142,13 +142,20 @@ namespace Sutoss.Controllers
             }
             catch (Exception ex)
             {
+                if (ex.Message == "Debe cancelarse cuota anterior")
+                {
+                    return StatusCode(StatusCodes.Status406NotAcceptable, ex.Message);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                }
                 // Logger.Error(ex);
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             try

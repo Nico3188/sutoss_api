@@ -90,9 +90,9 @@ namespace Sutoss.Controllers
         // [Authorize]
         public async Task<IActionResult> Create(PrestamoRequest newPrestamo)
         {
-            try 
+            try
             {
-                return Ok(await _service.Create(newPrestamo  ));
+                return Ok(await _service.Create(newPrestamo));
             }
             catch (NotFoundException ex)
             {
@@ -123,7 +123,7 @@ namespace Sutoss.Controllers
         {
             try
             {
-                return Ok(await _service.Update(Prestamo  ));
+                return Ok(await _service.Update(Prestamo));
             }
             catch (NotFoundException ex)
             {
@@ -142,8 +142,16 @@ namespace Sutoss.Controllers
             }
             catch (Exception ex)
             {
+                if ((ex.Message == "El prestamo ya fue rechazado") || (ex.Message == "El prestamo ya fue Aprobado"))
+                {
+                    return StatusCode(StatusCodes.Status406NotAcceptable, ex.Message);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                }
                 // Logger.Error(ex);
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+
             }
         }
 

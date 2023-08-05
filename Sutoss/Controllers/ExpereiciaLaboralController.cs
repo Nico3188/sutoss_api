@@ -26,7 +26,7 @@ namespace Sutoss.Controllers
         }
 
         [HttpGet("GetAll")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> GetAll([FromQuery] int? s, [FromQuery] string q, [FromQuery] int? l)
         {
             try
@@ -56,7 +56,7 @@ namespace Sutoss.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> GetById(int id)
         {
             try
@@ -87,12 +87,12 @@ namespace Sutoss.Controllers
         }
 
         [HttpPost("Create")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Create(ExpereiciaLaboralRequest newExpereiciaLaboral)
         {
-            try 
+            try
             {
-                return Ok(await _service.Create(newExpereiciaLaboral  ));
+                return Ok(await _service.Create(newExpereiciaLaboral));
             }
             catch (NotFoundException ex)
             {
@@ -118,12 +118,12 @@ namespace Sutoss.Controllers
         }
 
         [HttpPut("Update")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Update(ExpereiciaLaboralRequest ExpereiciaLaboral)
         {
             try
             {
-                return Ok(await _service.Update(ExpereiciaLaboral  ));
+                return Ok(await _service.Update(ExpereiciaLaboral));
             }
             catch (NotFoundException ex)
             {
@@ -147,8 +147,9 @@ namespace Sutoss.Controllers
             }
         }
 
+
         [HttpDelete("{id}")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             try
@@ -158,22 +159,22 @@ namespace Sutoss.Controllers
             }
             catch (NotFoundException ex)
             {
-                // Logger.Warn(ex);
+                //Logger.Warn(ex);
                 return StatusCode(StatusCodes.Status404NotFound, ex.Message);
             }
             catch (ForbiddenException ex)
             {
-                // Logger.Warn(ex);
+                //Logger.Warn(ex);
                 return StatusCode(StatusCodes.Status403Forbidden, ex.Message);
             }
             catch (UnauthorizedException ex)
             {
-                // Logger.Warn(ex);
+                //Logger.Warn(ex);
                 return StatusCode(StatusCodes.Status401Unauthorized, "Username or password is incorrect");
             }
             catch (Exception ex)
             {
-                // Logger.Error(ex);
+                //Logger.Error(ex);
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }

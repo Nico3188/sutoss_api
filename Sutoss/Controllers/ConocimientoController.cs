@@ -26,7 +26,7 @@ namespace Sutoss.Controllers
         }
 
         [HttpGet("GetAll")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> GetAll([FromQuery] int? s, [FromQuery] string q, [FromQuery] int? l)
         {
             try
@@ -56,7 +56,7 @@ namespace Sutoss.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> GetById(int id)
         {
             try
@@ -87,12 +87,12 @@ namespace Sutoss.Controllers
         }
 
         [HttpPost("Create")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Create(ConocimientoRequest newConocimiento)
         {
-            try 
+            try
             {
-                return Ok(await _service.Create(newConocimiento  ));
+                return Ok(await _service.Create(newConocimiento));
             }
             catch (NotFoundException ex)
             {
@@ -118,12 +118,12 @@ namespace Sutoss.Controllers
         }
 
         [HttpPut("Update")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Update(ConocimientoRequest Conocimiento)
         {
             try
             {
-                return Ok(await _service.Update(Conocimiento  ));
+                return Ok(await _service.Update(Conocimiento));
             }
             catch (NotFoundException ex)
             {
@@ -148,7 +148,7 @@ namespace Sutoss.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             try
